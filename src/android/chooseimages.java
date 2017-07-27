@@ -49,7 +49,6 @@ public class chooseimages extends CordovaPlugin {
         	       PERMISSIONS_STORAGE,  
         	       REQUEST_EXTERNAL_STORAGE  
         	     );  
-        	   callbackContext.success("permission");
            	   return false;
         	 }else{
         	    	maxSize = Integer.parseInt(args.getString(0));

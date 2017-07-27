@@ -1,4 +1,6 @@
 # cordova-plugin-youbanban-chooseimages
+# firt install plugin
+    cordova plugin add https://github.com/jsqy/cordova-plugin-youbanban-chooseimages.git
 # html
     <button ng-click="getImages()" class="button button-positive" id="chooseimages">选择图片</button>
 # controller

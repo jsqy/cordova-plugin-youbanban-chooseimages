@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin id="cordova-plugin-youbanban-chooseimages" version="0.0.1"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>chooseimages</name>
+    <description>Description</description>
+    <js-module name="chooseimages" src="www/chooseimages.js">
+        <clobbers target="cordova.plugins.chooseimages"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="chooseimages">
+                <param name="android-package" value="com.youbanban.cordova.chooseimages.chooseimages"/>
+            </feature>
+        </config-file>
+      <source-file src="src/android/chooseimages.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
+      <source-file src="src/android/bean/ImageFloder.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
+      <source-file src="src/android/imageloader/ListImageDirPopupWindow.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/imageloader/MainActivity.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/imageloader/MyAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/utils/BasePopupWindowForListView.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+      <source-file src="src/android/utils/CommonAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+      <source-file src="src/android/utils/ImageLoader.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+      <source-file src="src/android/utils/ViewHolder.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+
+      <source-file src="src/android/layout/chooseimage_main.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/grid_item.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/list_dir.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/list_dir_item.xml" target-dir="res/layout"/>
+
+      <source-file src="src/android/anim/slide_in.xml" target-dir="res/anim"/>
+      <source-file src="src/android/anim/slide_out.xml" target-dir="res/anim"/>
+
+      <source-file src="src/android/drawable-hdpi/dir_choose.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/pic_dir.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/picture_unselected.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/pictures_no.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/pictures_selected.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/ic_launcher.png" target-dir="res/drawable-hdpi"/>
+
+      <source-file src="src/android/values/styles.xml" target-dir="res/values"/>
+
+      <source-file src="src/android/android-support-v4.jar" target-dir="libs" />
+      <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:name="com.youbanban.cordova.chooseimages.imageloader.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="/manifest">
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+      </config-file>
+
+    </platform>
+</plugin>

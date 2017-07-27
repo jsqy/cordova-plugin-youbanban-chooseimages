@@ -1,8 +1,8 @@
 # cordova-plugin-youbanban-chooseimages
 # html
-#   <button ng-click="getImages()" class="button button-positive" id="chooseimages">选择图片</button>
+   <button ng-click="getImages()" class="button button-positive" id="chooseimages">选择图片</button>
 # controller
-# $scope.getImages = function(){
+    $scope.getImages = function(){
        $("#chooseimages").attr("disabled", "disabled"); //使按钮不能被点击
        var ChooseImages = cordova.require('cordova-plugin-youbanban-chooseimages.chooseimages');
        ChooseImages.getCamera(function(message) {

@@ -36,7 +36,7 @@ public class chooseimages extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext)
     throws JSONException {
         activity = this.cordova.getActivity();
-        callbackContext = callbackContext;
+        this.callbackContext = callbackContext;
         if(action.equals("setlocation")){
 
         }else if(action.equals("getCamera")){
@@ -52,29 +52,9 @@ public class chooseimages extends CordovaPlugin {
            	   return false;
         	 }else{
         	    	maxSize = Integer.parseInt(args.getString(0));
-        	           Intent intent = new Intent();
-        	           intent.setClass(activity, MainActivity.class);
-        	           this.cordova.startActivityForResult(this, intent, 1);
-        	           isOver = false;
-        	           while(true){
-        	        	   if(isOver){
-        	        		   isOver = false;
-        	        		   //下面三句为cordova插件回调页面的逻辑代码
-        	                   PluginResult mPlugin = new PluginResult(PluginResult.Status.NO_RESULT);
-        	                   mPlugin.setKeepCallback(true);
-        	                   callbackContext.sendPluginResult(mPlugin);
-        	                   String result = "";
-        	                   for(int i=0;i<MyAdapter.mSelectedImage.size();i++){
-        	                	   result = result+MyAdapter.mSelectedImage.get(i);
-        	                	   if(i < MyAdapter.mSelectedImage.size()-1){
-        	                		   result = result + ",";
-        	                	   }
-        	                   }
-        	       			   MyAdapter.mSelectedImage = new LinkedList<String>();
-        	                   callbackContext.success(result);
-        	               	   return true;
-        	        	   }
-        	           }
+        	        Intent intent = new Intent();
+        	        intent.setClass(activity, MainActivity.class);
+        	        this.cordova.startActivityForResult(this, intent, 1);
         	 }
 
         }
@@ -86,21 +66,20 @@ public class chooseimages extends CordovaPlugin {
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         switch (resultCode) { //resultCode为回传的标记，我在第二个Activity中回传的是RESULT_OK
             case Activity.RESULT_OK:
-            	isOver = true;
-//                Bundle b=intent.getExtras();  //data为第二个Activity中回传的Intent
-//                String str=b.getString("change01");//str即为回传的值
+            	String result = "";
+ 	            for(int i=0;i<MyAdapter.mSelectedImage.size();i++){
+ 	               result = result+MyAdapter.mSelectedImage.get(i);
+ 	               if(i < MyAdapter.mSelectedImage.size()-1){
+ 	            	   result = result + ",";
+ 	               }
+ 	             }
+ 	            MyAdapter.mSelectedImage = new LinkedList<String>();
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK,result)); 
                 break;
             default:
                break;
         }
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-//        if(resultCode==Activity.RESULT_OK){
-//            Toast.makeText(activity,"跳转页面的回调",Toast.LENGTH_LONG).show();
-//        }
-//    }
 
 
 

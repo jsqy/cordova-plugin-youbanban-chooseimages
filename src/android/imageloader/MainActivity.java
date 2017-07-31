@@ -103,8 +103,23 @@ public class MainActivity extends Activity implements OnImageDirSelected
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-
-		mImgs = Arrays.asList(mImgDir.list());
+		
+//		mImgs = Arrays.asList(mImgDir.list());
+		
+		mImgDir = new File(mImageFloders.get(0).getDir());
+		mImgs = Arrays.asList(mImgDir.list(new FilenameFilter()
+		{
+			@Override
+			public boolean accept(File dir, String filename)
+			{
+				if (filename.endsWith(".jpg") || filename.endsWith(".png")
+						|| filename.endsWith(".jpeg"))
+					return true;
+				return false;
+			}
+		}));
+		
+		mChooseDir.setText(mImageFloders.get(0).getName());
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */

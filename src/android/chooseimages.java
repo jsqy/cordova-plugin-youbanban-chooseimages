@@ -39,7 +39,7 @@ public class chooseimages extends CordovaPlugin {
         this.callbackContext = callbackContext;
         if(action.equals("setlocation")){
 
-        }else if(action.equals("getCamera")){
+        }else if(action.equals("getPhotos")){
         //0	 Check if we have write permission  
         	int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);  
         	if (permission != PackageManager.PERMISSION_GRANTED) {  

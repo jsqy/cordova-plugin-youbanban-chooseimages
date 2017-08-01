@@ -6,7 +6,7 @@
     $scope.getImages = function(){
        $("#chooseimages").attr("disabled", "disabled"); //使按钮不能被点击
        var ChooseImages = cordova.require('cordova-plugin-youbanban-chooseimages.chooseimages');
-       ChooseImages.getCamera(function(message) {
+       ChooseImages.getPhotos(function(message) {
          var imgPaths = message.split(",");
          if(message == ""){
            alert("并没有选择图片");

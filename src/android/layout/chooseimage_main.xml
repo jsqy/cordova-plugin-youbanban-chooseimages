@@ -61,7 +61,13 @@
       android:paddingLeft="10dip"
       android:text="所有图片"
       android:textColor="@android:color/white" />
-
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/id_choose_dir"
+            android:layout_alignBottom="@+id/id_choose_dir"
+            android:paddingLeft="2dip"
+            android:src="@drawable/jiaobiao" />
     <TextView
       android:id="@+id/id_total_count"
       android:layout_width="50dip"

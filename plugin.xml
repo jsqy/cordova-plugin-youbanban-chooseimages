@@ -37,6 +37,7 @@
       <source-file src="src/android/drawable-hdpi/pictures_no.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/pictures_selected.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/ic_launcher.png" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/jiaobiao.png" target-dir="res/drawable-hdpi"/>
 
       <source-file src="src/android/values/styles.xml" target-dir="res/values"/>
 

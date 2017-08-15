@@ -28,7 +28,7 @@
       <source-file src="src/android/layout/grid_item.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir_item.xml" target-dir="res/layout"/>
-      <source-file src="src/android/layout/chooseImage_yulan.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/chooseimage_yulan.xml" target-dir="res/layout"/>
 
       <source-file src="src/android/anim/slide_in.xml" target-dir="res/anim"/>
       <source-file src="src/android/anim/slide_out.xml" target-dir="res/anim"/>

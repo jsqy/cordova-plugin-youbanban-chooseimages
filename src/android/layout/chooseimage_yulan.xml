@@ -1,12 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>    
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    
-    android:layout_width="fill_parent"    
-    android:layout_height="fill_parent"    
-    android:orientation="vertical" >    
-    
-    <ViewFlipper    
-        android:id="@+id/viewflipper"    
-        android:layout_width="fill_parent"    
-        android:layout_height="fill_parent"/>    
-    
-</LinearLayout>    
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#fff"  >
+
+    <RelativeLayout
+            android:id="@+id/id_top_ly"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:background="#ffffff"
+            android:clickable="true" >
+        <TextView
+                android:id="@+id/tv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+
+                android:layout_marginTop="10dip"
+                android:background="@drawable/picture_folder_arrow2"
+                android:layout_marginLeft="10dip"/>
+        <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textColor="#000"
+                android:layout_centerVertical="true"
+                android:paddingLeft="2dip"
+                android:paddingRight="2dip"
+                android:background="@drawable/preview_delete"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dip" />
+    </RelativeLayout>
+
+    <ViewFlipper
+            android:id="@+id/viewflipper"
+            android:layout_below="@+id/id_top_ly"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:background="#ffffff"
+            android:layout_height="match_parent"/>
+
+</RelativeLayout>

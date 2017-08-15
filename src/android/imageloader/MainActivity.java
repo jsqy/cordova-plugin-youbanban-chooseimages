@@ -311,7 +311,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 				if(MyAdapter.mSelectedImage.size() >0){
 					Intent intent = new Intent();
 					intent.setClass(MainActivity.this, com.youbanban.cordova.chooseimages.YuLanActivity.class);
-					startActivity(intent);
+					startActivityForResult(intent, 2);
 				}
 			}
 		});
@@ -368,6 +368,23 @@ public class MainActivity extends Activity implements OnImageDirSelected
 
 
 	}
+
+	 // 回调方法，从第二个页面回来的时候会执行这个方法
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // 根据上面发送过去的请求吗来区别
+        switch (requestCode) {
+        case 0:
+            break;
+        case 2:
+        	mAdapter.notifyDataSetChanged();
+    		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
+    		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+            break;
+        default:
+            break;
+        }
+    }
 
 	@Override
 	public void selected(ImageFloder floder)

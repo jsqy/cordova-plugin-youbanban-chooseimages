@@ -3,6 +3,8 @@ package com.youbanban.cordova.chooseimages.imageloader;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.cordova.LOG;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -50,6 +52,11 @@ public class MyAdapter extends CommonAdapter<String>
 
 		final ImageView mImageView = helper.getView(R.id.id_item_image);
 		final ImageView mSelect = helper.getView(R.id.id_item_select);
+
+		final ImageView mSelectAR = helper.getView(R.id.id_item_ar);
+		if(item.indexOf("youbanban.ar") != -1){
+			mSelectAR.setImageResource(R.drawable.ar_title);
+		}
 
 		mImageView.setColorFilter(null);
 		//设置ImageView的点击事件

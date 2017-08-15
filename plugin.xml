@@ -46,7 +46,7 @@
       <source-file src="src/android/drawable-hdpi/jiaobiao.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/yellow_background.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/picture_folder_arrow.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/picture_folder_arrow.png2" target-dir="res/drawable-hdpi"/>
+      <source-file src="src/android/drawable-hdpi/picture_folder_arrow2.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/array_left.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/preview_delete.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/ar_title.png" target-dir="res/drawable-hdpi"/>

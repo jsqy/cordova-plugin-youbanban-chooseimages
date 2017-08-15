@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 
 	private GridView mGirdView;
 	private MyAdapter mAdapter;
-	private TextView tv_ok;
+	public static TextView tv_ok;
 	private TextView tv_back;
 	/**
 	 * 临时的辅助类，用于防止同一个文件夹的多次扫描
@@ -103,31 +103,43 @@ public class MainActivity extends Activity implements OnImageDirSelected
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
+//		mImgDir = new File(mImageFloders.get(0).getDir());
 //		mImgs = Arrays.asList(mImgDir.list());
-		
-		mImgDir = new File(mImageFloders.get(0).getDir());
+
 		mImgs = Arrays.asList(mImgDir.list(new FilenameFilter()
 		{
-			@Override
-			public boolean accept(File dir, String filename)
-			{
-				if (filename.endsWith(".jpg") || filename.endsWith(".png")
-						|| filename.endsWith(".jpeg"))
-					return true;
-				return false;
-			}
-		}));
-		
-		mChooseDir.setText(mImageFloders.get(0).getName());
+		@Override
+		public boolean accept(File dir, String filename)
+		{
+			if (filename.endsWith(".jpg") || filename.endsWith(".png")
+					|| filename.endsWith(".jpeg"))
+				return true;
+			return false;
+		}
+	}));
+
+//		mImgs = Arrays.asList(mImgDir.list(new FilenameFilter()
+//		{
+//			@Override
+//			public boolean accept(File dir, String filename)
+//			{
+//				if (filename.endsWith(".jpg") || filename.endsWith(".png")
+//						|| filename.endsWith(".jpeg"))
+//					return true;
+//				return false;
+//			}
+//		}));
+
+		mChooseDir.setText(mImgDir.getName());
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
 		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
-//		mImageCount.setText(totalCount + "张");
-		mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
+//		mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
 	};
 
 
@@ -290,10 +302,24 @@ public class MainActivity extends Activity implements OnImageDirSelected
 
 	private void initEvent()
 	{
+
+		mImageCount.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				if(MyAdapter.mSelectedImage.size() >0){
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, com.youbanban.cordova.chooseimages.YuLanActivity.class);
+					startActivity(intent);
+				}
+			}
+		});
+
 		/**
 		 * 为底部的布局设置点击事件，弹出popupWindow
 		 */
-		mBottomLy.setOnClickListener(new OnClickListener()
+		mChooseDir.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)

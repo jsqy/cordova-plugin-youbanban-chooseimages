@@ -3,64 +3,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
   <RelativeLayout
-    android:id="@+id/id_top_ly"
-    android:layout_width="match_parent"
-    android:layout_height="30dip"
-    android:layout_alignParentTop="true"
-    android:background="#e0000000"
-    android:clickable="true" >
+          android:id="@+id/id_top_ly"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentTop="true"
+          android:background="#e0000000"
+          android:paddingTop="10dip"
+          android:clickable="true" >
     <TextView
-      android:id="@+id/tv_back"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="#fff"
-      android:layout_marginTop="10dip"
-      android:text="返回"
-      android:layout_marginLeft="10dip"/>
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:layout_marginTop="1dip"
+            android:background="@drawable/array_left"
+            android:layout_marginLeft="10dip"/>
     <TextView
-      android:id="@+id/tv_ok"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="#fff"
-      android:layout_marginTop="10dip"
-      android:text="确定"
-      android:layout_alignParentRight="true"
-      android:layout_marginRight="10dip" />
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:layout_marginTop="3dip"
+            android:paddingBottom="3dip"
+            android:paddingLeft="2dip"
+            android:paddingRight="2dip"
+            android:text="确定"
+            android:background="#ffe462"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip" />
   </RelativeLayout>
 
   <GridView
-    android:id="@+id/id_gridView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="50dip"
-    android:cacheColorHint="@android:color/transparent"
-    android:clipChildren="true"
-    android:gravity="center"
-    android:horizontalSpacing="3dip"
-    android:listSelector="@android:color/transparent"
-    android:numColumns="3"
-    android:stretchMode="columnWidth"
-    android:verticalSpacing="3dip" >
+          android:id="@+id/id_gridView"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="50dip"
+          android:cacheColorHint="@android:color/transparent"
+          android:clipChildren="true"
+          android:gravity="center"
+          android:horizontalSpacing="3dip"
+          android:listSelector="@android:color/transparent"
+          android:numColumns="3"
+          android:stretchMode="columnWidth"
+          android:verticalSpacing="3dip" >
   </GridView>
 
   <RelativeLayout
-    android:id="@+id/id_bottom_ly"
-    android:layout_width="match_parent"
-    android:layout_height="50dip"
-    android:layout_alignParentBottom="true"
-    android:background="#e0000000"
-    android:clickable="true" >
+          android:id="@+id/id_bottom_ly"
+          android:layout_width="match_parent"
+          android:layout_height="50dip"
+          android:layout_alignParentBottom="true"
+          android:background="#e0000000"
+          android:clickable="true" >
 
     <TextView
-      android:id="@+id/id_choose_dir"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_alignParentLeft="true"
-      android:layout_centerVertical="true"
-      android:gravity="center_vertical"
-      android:paddingLeft="10dip"
-      android:text="所有图片"
-      android:textColor="@android:color/white" />
+            android:id="@+id/id_choose_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dip"
+            android:textColor="@android:color/white" />
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,14 +73,14 @@
             android:src="@drawable/jiaobiao"
             android:layout_marginTop="25dp"/>
     <TextView
-      android:id="@+id/id_total_count"
-      android:layout_width="50dip"
-      android:layout_height="match_parent"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:gravity="center"
-      android:text="0张"
-      android:textColor="@android:color/white" />
+            android:id="@+id/id_total_count"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:gravity="center"
+            android:textColor="@android:color/white" />
   </RelativeLayout>
 
 </RelativeLayout>

@@ -66,19 +66,21 @@ public class MyAdapter extends CommonAdapter<String>
 					mSelectedImage.remove(mDirPath + "/" + item);
 					mSelect.setImageResource(R.drawable.picture_unselected);
 					mImageView.setColorFilter(null);
-					MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+//					MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
 				} else
 				// 未选择该图片
 				{
 					if(MyAdapter.mSelectedImage.size() < chooseimages.maxSize ){
 						mSelectedImage.add(mDirPath + "/" + item);
 						mSelect.setImageResource(R.drawable.pictures_selected);
+//						mSelect.setImageResource(R.drawable.yellow_background);
 						mImageView.setColorFilter(Color.parseColor("#77000000"));
-						MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+//						MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
 					}
 				}
 
-
+				MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+				MainActivity.mImageCount.setText("预览"+"("+mSelectedImage.size() + ")");
 
 
 			}

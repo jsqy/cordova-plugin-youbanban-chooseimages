@@ -68,7 +68,7 @@
             android:layout_alignBottom="@+id/id_choose_dir"
             android:paddingLeft="2dip"
             android:src="@drawable/jiaobiao"
-            android:margin_bottom="3dp"/>
+            android:layout_marginBottom="3dp"/>
     <TextView
       android:id="@+id/id_total_count"
       android:layout_width="50dip"

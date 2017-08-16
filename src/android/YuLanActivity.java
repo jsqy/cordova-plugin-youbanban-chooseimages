@@ -10,9 +10,10 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;  
-import android.view.GestureDetector;  
-import android.view.Menu;  
-import android.view.MotionEvent;  
+import android.os.Handler;
+import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -35,8 +37,11 @@ public class YuLanActivity extends Activity implements
 
     private TextView tv_delete;
     private TextView tv_back;
+    private RelativeLayout rl_back;
+    private RelativeLayout rl_delete;
     private int num = 0;
 
+    private int isOver = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,25 +54,35 @@ public class YuLanActivity extends Activity implements
         initFlipper();
 
         tv_delete = (TextView) findViewById(R.id.tv_delete);
-        tv_delete.setOnClickListener(new OnClickListener() {
+        rl_delete = (RelativeLayout) findViewById(R.id.rl_delete);
+        rl_delete.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 
-				if(MyAdapter.mSelectedImage.size() == 1){
-					MyAdapter.mSelectedImage.remove(num);
-					YuLanActivity.this.finish();
-				}else{
-					MyAdapter.mSelectedImage.remove(num);
-					initFlipper();
+				if(isOver == 1){
+					isOver = 0;
+					if(MyAdapter.mSelectedImage.size() == 1){
+						MyAdapter.mSelectedImage.remove(num);
+						YuLanActivity.this.finish();
+					}else{
+						MyAdapter.mSelectedImage.remove(num);
+						initFlipper();
+						new Handler().postDelayed(new Runnable(){
+						    public void run() {
+						    isOver =1;
+						    }
+						 }, 300);
+					}
 				}
-
 
 			}
 		});
 
         tv_back = (TextView) findViewById(R.id.tv_back);
-        tv_back.setOnClickListener(new OnClickListener() {
+
+        rl_back = (RelativeLayout) findViewById(R.id.rl_back);
+        rl_back.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -75,6 +90,7 @@ public class YuLanActivity extends Activity implements
 				YuLanActivity.this.finish();
 			}
 		});
+
     }
 
     private void initFlipper(){
@@ -88,11 +104,11 @@ public class YuLanActivity extends Activity implements
             viewFlipper.addView(iv, new LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.FILL_PARENT));
         }
-    	  viewFlipper.setAutoStart(true); // 设置自动播放功能（点击事件，前自动播放）
-          viewFlipper.setFlipInterval(3000);
-          if (viewFlipper.isAutoStart() && !viewFlipper.isFlipping()) {
-              viewFlipper.startFlipping();
-          }
+//    	  viewFlipper.setAutoStart(true); // 设置自动播放功能（点击事件，前自动播放）
+//          viewFlipper.setFlipInterval(3000);
+//          if (viewFlipper.isAutoStart() && !viewFlipper.isFlipping()) {
+//              viewFlipper.startFlipping();
+//          }
     }
 
 

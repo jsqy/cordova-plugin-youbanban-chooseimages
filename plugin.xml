@@ -50,7 +50,7 @@
       <source-file src="src/android/drawable-hdpi/array_left.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/preview_delete.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/ar_title.png" target-dir="res/drawable-hdpi"/>
-
+      <source-file src="src/android/drawable-hdpi/shape_corner.xml" target-dir="res/drawable-hdpi"/>
 
       <source-file src="src/android/values/styles.xml" target-dir="res/values"/>
 

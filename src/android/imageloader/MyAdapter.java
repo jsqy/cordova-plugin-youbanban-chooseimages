@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.youbanban.cordova.chooseimages.chooseimages;
@@ -51,12 +53,23 @@ public class MyAdapter extends CommonAdapter<String>
 		helper.setImageByUrl(R.id.id_item_image, mDirPath + "/" + item);
 
 		final ImageView mImageView = helper.getView(R.id.id_item_image);
+		mImageView.setScaleType(ScaleType.CENTER_CROP);
 		final ImageView mSelect = helper.getView(R.id.id_item_select);
-
+		final TextView tv_item_select = helper.getView(R.id.tv_item_select);
 		final ImageView mSelectAR = helper.getView(R.id.id_item_ar);
 		if(item.indexOf("youbanban.ar") != -1){
 			mSelectAR.setImageResource(R.drawable.ar_title);
 		}
+
+//		for(int i = 0;i<mSelectedImage.size();i++){
+//			if (mSelectedImage.get(i).equals(mDirPath + "/" + item))
+//			{
+//				mSelect.setImageResource(R.drawable.yellow_background);
+//				tv_item_select.setText(i+"");
+//				mImageView.setColorFilter(Color.parseColor("#77000000"));
+//			}
+//		}
+//
 
 		mImageView.setColorFilter(null);
 		//设置ImageView的点击事件
@@ -78,7 +91,12 @@ public class MyAdapter extends CommonAdapter<String>
 				// 未选择该图片
 				{
 					if(MyAdapter.mSelectedImage.size() < chooseimages.maxSize ){
+//						for(int i = 0;i<mSelectedImage.size();i++){
+//							Toast.makeText(mContext, mSelectedImage.get(i), 2000).show();
+//						}
 						mSelectedImage.add(mDirPath + "/" + item);
+//						notifyDataSetChanged();
+
 						mSelect.setImageResource(R.drawable.pictures_selected);
 //						mSelect.setImageResource(R.drawable.yellow_background);
 						mImageView.setColorFilter(Color.parseColor("#77000000"));
@@ -102,5 +120,11 @@ public class MyAdapter extends CommonAdapter<String>
 			mImageView.setColorFilter(Color.parseColor("#77000000"));
 		}
 
+	}
+
+	@Override
+	public void notifyDataSetChanged() {
+		// TODO Auto-generated method stub
+		super.notifyDataSetChanged();
 	}
 }

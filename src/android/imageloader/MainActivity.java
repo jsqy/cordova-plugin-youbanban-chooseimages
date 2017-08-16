@@ -60,6 +60,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 	private MyAdapter mAdapter;
 	public static TextView tv_ok;
 	private TextView tv_back;
+	private TextView tv_title;
 	/**
 	 * 临时的辅助类，用于防止同一个文件夹的多次扫描
 	 */
@@ -73,7 +74,9 @@ public class MainActivity extends Activity implements OnImageDirSelected
 	private RelativeLayout mBottomLy;
 
 	private TextView mChooseDir;
+	private RelativeLayout rl_choose_dir;
 	public static TextView mImageCount;
+	private RelativeLayout rl_yulan;
 	int totalCount = 0;
 
 	private int mScreenHeight;
@@ -130,7 +133,9 @@ public class MainActivity extends Activity implements OnImageDirSelected
 //			}
 //		}));
 
-		mChooseDir.setText(mImgDir.getName());
+//		mChooseDir.setText(mImgDir.getName());
+		tv_title.setText("相册:"+mImgDir.getName());
+		mChooseDir.setText("切换相册");
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
@@ -292,9 +297,11 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		mGirdView = (GridView) findViewById(R.id.id_gridView);
 		mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
 		mImageCount = (TextView) findViewById(R.id.id_total_count);
-
+		rl_yulan = (RelativeLayout) findViewById(R.id.rl_total_count);
+		rl_choose_dir = (RelativeLayout) findViewById(R.id.rl_choose_dir);
 		tv_ok = (TextView) findViewById(R.id.tv_ok);
 		tv_back = (TextView) findViewById(R.id.tv_back);
+		tv_title = (TextView) findViewById(R.id.tv_title);
 
 		mBottomLy = (RelativeLayout) findViewById(R.id.id_bottom_ly);
 
@@ -303,7 +310,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 	private void initEvent()
 	{
 
-		mImageCount.setOnClickListener(new OnClickListener()
+		rl_yulan.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -319,7 +326,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		/**
 		 * 为底部的布局设置点击事件，弹出popupWindow
 		 */
-		mChooseDir.setOnClickListener(new OnClickListener()
+		rl_choose_dir.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -410,7 +417,9 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		mGirdView.setAdapter(mAdapter);
 		// mAdapter.notifyDataSetChanged();
 //		mImageCount.setText(floder.getCount() + "张");
-		mChooseDir.setText(floder.getName());
+		String name = floder.getName();
+		name = name.substring(1, name.length()-1);
+		tv_title.setText("相册:"+name);
 		mListImageDirPopupWindow.dismiss();
 
 	}

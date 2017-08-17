@@ -16,6 +16,7 @@
       <source-file src="src/android/chooseimages.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/YuLanActivity.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/bean/ImageFloder.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
+      <source-file src="src/android/bean/Images.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
       <source-file src="src/android/imageloader/ListImageDirPopupWindow.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/MainActivity.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/MyAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>

@@ -2,15 +2,19 @@ package com.youbanban.cordova.chooseimages;
   
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import com.youbanban.app.R;
+import com.youbanban.cordova.chooseimages.imageloader.MainActivity;
 import com.youbanban.cordova.chooseimages.imageloader.MyAdapter;
 
-import android.app.Activity;  
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;  
+import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -23,6 +27,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class YuLanActivity extends Activity implements
@@ -42,31 +47,39 @@ public class YuLanActivity extends Activity implements
     private int num = 0;
 
     private int isOver = 1;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chooseimage_yulan);
         mActivity = this;
-        viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
-
-        gestureDetector = new GestureDetector(this);
-
+        Log.e("xulei","01");
+   	 	viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
+   	 	Log.e("xulei","02");
+   	 	gestureDetector = new GestureDetector(this);
+        Log.e("xulei","03");
         initFlipper();
-
+        Log.e("xulei","04");
         tv_delete = (TextView) findViewById(R.id.tv_delete);
         rl_delete = (RelativeLayout) findViewById(R.id.rl_delete);
         rl_delete.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-
+				  Log.e("xulei","04");
 				if(isOver == 1){
 					isOver = 0;
 					if(MyAdapter.mSelectedImage.size() == 1){
 						MyAdapter.mSelectedImage.remove(num);
 						YuLanActivity.this.finish();
 					}else{
+
 						MyAdapter.mSelectedImage.remove(num);
+						MyAdapter.initList();
+						Toast.makeText(mActivity, "删除成功!", 2000).show();
 						initFlipper();
 						new Handler().postDelayed(new Runnable(){
 						    public void run() {
@@ -78,7 +91,7 @@ public class YuLanActivity extends Activity implements
 
 			}
 		});
-
+        Log.e("xulei","05");
         tv_back = (TextView) findViewById(R.id.tv_back);
 
         rl_back = (RelativeLayout) findViewById(R.id.rl_back);
@@ -90,13 +103,18 @@ public class YuLanActivity extends Activity implements
 				YuLanActivity.this.finish();
 			}
 		});
-
+        Log.e("xulei","06");
     }
 
     private void initFlipper(){
+
+    	  Log.e("xulei","07");
+
     	viewFlipper.removeAllViews();
     	for (int i = 0; i < MyAdapter.mSelectedImage.size(); i++) { // 添加图片源
+    		  Log.e("xulei","08");
             ImageView iv = new ImageView(this);
+
             Bitmap bitmap = getLoacalBitmap(MyAdapter.mSelectedImage.get(i)); //从本地取图片(在cdcard中获取)  //
             iv .setImageBitmap(bitmap); //设置Bitmap
 
@@ -104,11 +122,7 @@ public class YuLanActivity extends Activity implements
             viewFlipper.addView(iv, new LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.FILL_PARENT));
         }
-//    	  viewFlipper.setAutoStart(true); // 设置自动播放功能（点击事件，前自动播放）
-//          viewFlipper.setFlipInterval(3000);
-//          if (viewFlipper.isAutoStart() && !viewFlipper.isFlipping()) {
-//              viewFlipper.startFlipping();
-//          }
+
     }
 
 
@@ -120,7 +134,10 @@ public class YuLanActivity extends Activity implements
     public static Bitmap getLoacalBitmap(String url) {
          try {
               FileInputStream fis = new FileInputStream(url);
-              return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片
+              BitmapFactory.Options options = new BitmapFactory.Options();
+              options.inPreferredConfig = Config.RGB_565;
+              Bitmap bitmap = BitmapFactory.decodeStream(fis, null, options);
+              return bitmap;  ///把流转化为Bitmap图片
 
            } catch (FileNotFoundException e) {
               e.printStackTrace();
@@ -180,8 +197,14 @@ public class YuLanActivity extends Activity implements
             return true;
         }
 
-        return true;  
-    }  
+        return true;
+    }
+    @Override
+    protected void onDestroy() {
+    	// TODO Auto-generated method stub
+    	super.onDestroy();
+    	System.gc();
+    }
   
     @Override  
     public void onLongPress(MotionEvent arg0) {  

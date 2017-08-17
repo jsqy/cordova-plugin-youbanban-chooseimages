@@ -1,7 +1,10 @@
 package com.youbanban.cordova.chooseimages.imageloader;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.cordova.LOG;
 
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.youbanban.cordova.chooseimages.chooseimages;
+import com.youbanban.cordova.chooseimages.bean.Images;
 import com.youbanban.cordova.chooseimages.utils.CommonAdapter;
 import com.youbanban.app.R;
 
@@ -26,7 +30,7 @@ public class MyAdapter extends CommonAdapter<String>
 	 * 用户选择的图片，存储为图片的完整路径
 	 */
 	public static List<String> mSelectedImage = new LinkedList<String>();
-
+	public static List<Images> list = new ArrayList<Images>();
 	/**
 	 * 文件夹路径
 	 */
@@ -45,7 +49,7 @@ public class MyAdapter extends CommonAdapter<String>
 	{
 
 		//设置no_pic
-		helper.setImageResource(R.id.id_item_image, R.drawable.pictures_no);
+//		helper.setImageResource(R.id.id_item_image, R.drawable.pictures_no);
 		//设置no_selected
 				helper.setImageResource(R.id.id_item_select,
 						R.drawable.picture_unselected);
@@ -61,15 +65,6 @@ public class MyAdapter extends CommonAdapter<String>
 			mSelectAR.setImageResource(R.drawable.ar_title);
 		}
 
-//		for(int i = 0;i<mSelectedImage.size();i++){
-//			if (mSelectedImage.get(i).equals(mDirPath + "/" + item))
-//			{
-//				mSelect.setImageResource(R.drawable.yellow_background);
-//				tv_item_select.setText(i+"");
-//				mImageView.setColorFilter(Color.parseColor("#77000000"));
-//			}
-//		}
-//
 
 		mImageView.setColorFilter(null);
 		//设置ImageView的点击事件
@@ -86,21 +81,30 @@ public class MyAdapter extends CommonAdapter<String>
 					mSelectedImage.remove(mDirPath + "/" + item);
 					mSelect.setImageResource(R.drawable.picture_unselected);
 					mImageView.setColorFilter(null);
+//					for(int i =0;i<list.size();i++){
+//						if(list.get(i).getPath().equals((mDirPath + "/" + item))){
+//							int num = list.get(i).getNum();
+//							list.remove(i);
+//							for(int j =0;j<list.size();j++){
+//								if(list.get(j).getNum()>num){
+//									list.get(j).setNum(list.get(j).getNum()-1);
+//								}
+//							}
+//
+//						}
+//					}
+					initList();
+					notifyDataSetChanged();
 //					MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
 				} else
 				// 未选择该图片
 				{
 					if(MyAdapter.mSelectedImage.size() < chooseimages.maxSize ){
-//						for(int i = 0;i<mSelectedImage.size();i++){
-//							Toast.makeText(mContext, mSelectedImage.get(i), 2000).show();
-//						}
 						mSelectedImage.add(mDirPath + "/" + item);
-//						notifyDataSetChanged();
-
-						mSelect.setImageResource(R.drawable.pictures_selected);
-//						mSelect.setImageResource(R.drawable.yellow_background);
-						mImageView.setColorFilter(Color.parseColor("#77000000"));
-//						MainActivity.mImageCount.setText(MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+						initList();
+						notifyDataSetChanged();
+//						Images image = new Images((mDirPath + "/" + item).toString(), list.size()+1);
+//						list.add(image);
 					}
 				}
 
@@ -111,13 +115,25 @@ public class MyAdapter extends CommonAdapter<String>
 			}
 		});
 
+
+
 		/**
 		 * 已经选择过的图片，显示出选择过的效果
 		 */
 		if (mSelectedImage.contains(mDirPath + "/" + item))
 		{
-			mSelect.setImageResource(R.drawable.pictures_selected);
-			mImageView.setColorFilter(Color.parseColor("#77000000"));
+			for(int i=0;i<list.size();i++){
+				if(list.get(i).getPath().equals((mDirPath + "/" + item))){
+					mSelect.setImageResource(R.drawable.yellow_background);
+					tv_item_select.setText(list.get(i).getNum()+"");
+					mImageView.setColorFilter(Color.parseColor("#77000000"));
+				}
+			}
+
+		}else{
+			mSelect.setImageResource(R.drawable.picture_unselected);
+			tv_item_select.setText("");
+			mImageView.setColorFilter(null);
 		}
 
 	}
@@ -127,4 +143,29 @@ public class MyAdapter extends CommonAdapter<String>
 		// TODO Auto-generated method stub
 		super.notifyDataSetChanged();
 	}
+
+	public static void initList(){
+		list = new ArrayList<Images>();
+		for(int i = 0;i<mSelectedImage.size();i++){
+			Images image = new Images(mSelectedImage.get(i), i+1);
+			list.add(image);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

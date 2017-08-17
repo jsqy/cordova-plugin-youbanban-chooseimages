@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -139,6 +140,8 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
+//		Collections.sort(mImgs, new FileComparator());
+		Collections.reverse(mImgs);
 		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
@@ -409,6 +412,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 				return false;
 			}
 		}));
+		Collections.reverse(mImgs);
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */

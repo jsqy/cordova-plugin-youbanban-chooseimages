@@ -27,6 +27,8 @@
       <source-file src="src/android/utils/CommonAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/ImageLoader.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/ViewHolder.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+      <source-file src="src/android/utils/BitmapUtil.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+      <source-file src="src/android/utils/Util.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
 
       <source-file src="src/android/layout/chooseimage_main.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/grid_item.xml" target-dir="res/layout"/>

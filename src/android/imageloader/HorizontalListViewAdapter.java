@@ -5,7 +5,9 @@ package com.youbanban.cordova.chooseimages.imageloader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import com.bumptech.glide.Glide;
 import com.youbanban.app.R;
+import com.youbanban.cordova.chooseimages.YuLanActivity;
 import com.youbanban.cordova.chooseimages.utils.BitmapUtil;
 import com.youbanban.cordova.chooseimages.utils.Util;
 
@@ -74,14 +76,20 @@ public class HorizontalListViewAdapter extends BaseAdapter{
 		}else{
 			convertView.setSelected(false);
 		}
-		
+
 
 		for(int i = 0;i<MyAdapter.list.size();i++){
 			if(MyAdapter.list.get(i).getNum() == position+1){
-				holder.mImage.setPadding(2, 2, 2, 2);
-				holder.mImage.setImageBitmap(MyAdapter.list.get(i).getBitmap());
+				holder.mImage.setPadding(5, 5, 5, 5);
+				Glide.with(mContext).load(MyAdapter.list.get(i).getPath()).centerCrop()
+	            .placeholder(Color.BLACK).crossFade()
+	            .into(holder.mImage);
+//				holder.mImage.setImageBitmap(MyAdapter.list.get(i).getBitmap());
+				//在ListView中加载列表图片
+
+//				Glide.with(mContext).load(MyAdapter.list.get(i).getPath()).into(holder.mImage);
 				if(position == selectIndex){
-					holder.mImage.setBackgroundColor(Color.YELLOW);
+					holder.mImage.setBackgroundColor(Color.rgb(255, 228, 98));
 				}else{
 					holder.mImage.setBackgroundColor(Color.BLACK);
 				}
@@ -90,6 +98,7 @@ public class HorizontalListViewAdapter extends BaseAdapter{
 				}else{
 					holder.rl_mengceng.setVisibility(View.GONE);
 				}
+
 			}
 		}
 		

@@ -63,6 +63,10 @@
       <source-file src="src/android/values/styles.xml" target-dir="res/values"/>
 
       <source-file src="src/android/android-support-v4.jar" target-dir="libs" />
+      <source-file src="src/android/glide-3.6.1.jar" target-dir="libs" />
+      <source-file src="src/android/photoview-library-1.2.2.jar" target-dir="libs" />
+      <source-file src="src/android/universal-image-loader-1.9.2_sources.jar" target-dir="libs" />
+
       <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <activity android:name="com.youbanban.cordova.chooseimages.imageloader.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name="com.youbanban.cordova.chooseimages.YuLanActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />

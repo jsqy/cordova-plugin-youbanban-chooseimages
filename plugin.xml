@@ -20,6 +20,9 @@
       <source-file src="src/android/imageloader/ListImageDirPopupWindow.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/MainActivity.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/MyAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/imageloader/HorizontalListView.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/imageloader/HorizontalListViewAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+
       <source-file src="src/android/utils/BasePopupWindowForListView.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/CommonAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/ImageLoader.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
@@ -30,6 +33,8 @@
       <source-file src="src/android/layout/list_dir.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir_item.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/chooseimage_yulan.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/horizontal_list_item.xml" target-dir="res/layout"/>
+
 
       <source-file src="src/android/anim/slide_in.xml" target-dir="res/anim"/>
       <source-file src="src/android/anim/slide_out.xml" target-dir="res/anim"/>

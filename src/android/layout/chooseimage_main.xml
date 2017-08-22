@@ -59,6 +59,7 @@
             android:listSelector="@android:color/transparent"
             android:numColumns="4"
             android:stretchMode="columnWidth"
+            android:paddingTop="2dp"
             android:layout_marginBottom="40dip"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"

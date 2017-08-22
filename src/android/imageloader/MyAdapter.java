@@ -9,6 +9,8 @@ import java.util.Map;
 import org.apache.cordova.LOG;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.youbanban.cordova.chooseimages.chooseimages;
 import com.youbanban.cordova.chooseimages.bean.Images;
 import com.youbanban.cordova.chooseimages.utils.CommonAdapter;
+import com.youbanban.cordova.chooseimages.utils.Util;
 import com.youbanban.app.R;
 
 public class MyAdapter extends CommonAdapter<String>
@@ -30,6 +33,7 @@ public class MyAdapter extends CommonAdapter<String>
 	 * 用户选择的图片，存储为图片的完整路径
 	 */
 	public static List<String> mSelectedImage = new LinkedList<String>();
+	public static List<Bitmap> lsitBitmap = new ArrayList<Bitmap>();
 	public static List<Images> list = new ArrayList<Images>();
 	/**
 	 * 文件夹路径
@@ -151,6 +155,8 @@ public class MyAdapter extends CommonAdapter<String>
 			list.add(image);
 		}
 	}
+
+
 
 
 

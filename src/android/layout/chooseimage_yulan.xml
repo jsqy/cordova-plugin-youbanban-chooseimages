@@ -2,75 +2,136 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="#fff"  >
+                android:background="#fff" >
+
 
     <RelativeLayout
             android:id="@+id/id_top_ly"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"
-            android:background="#ffffff"
+            android:background="#454545"
             android:clickable="true" >
-        <RelativeLayout
-                android:id="@+id/rl_back"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true" />
+
         <TextView
                 android:id="@+id/tv_back"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:textColor="#fff"
-                android:layout_marginTop="10dip"
-                android:background="@drawable/picture_folder_arrow2"
-                android:layout_marginLeft="10dip"/>
-        <RelativeLayout
-                android:id="@+id/rl_delete"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true" />
-        <TextView
-                android:id="@+id/tv_delete"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:textColor="#000"
-                android:layout_centerVertical="true"
-                android:paddingLeft="2dip"
-                android:paddingRight="5dip"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/preview_delete"
-                android:layout_toLeftOf="@+id/tv_delete_tv"
-                android:layout_marginRight="5dip" />
-        <TextView
-                android:id="@+id/tv_delete_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:layout_centerVertical="true"
-                android:paddingLeft="2dip"
-                android:paddingRight="2dip"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_alignParentRight="true"
-                android:text="删除"
-        />
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/array_left"
+                android:textColor="#fff" />
         <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#45454545"
-                android:layout_alignParentBottom="true"
-
+                android:id="@+id/rl_back"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
         ></RelativeLayout>
+
+        <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="预览照片"
+                android:gravity="center_vertical"
+                android:textColor="#fff" />
+
+        <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/shape_corner"
+                android:paddingLeft="4dip"
+                android:layout_marginTop="10dp"
+                android:paddingRight="4dip"
+                android:text="完成"
+                android:textColor="#000" />
     </RelativeLayout>
 
 
 
-    <ViewFlipper
-            android:id="@+id/viewflipper"
+    <ImageView
+            android:id="@+id/img_index"
             android:layout_below="@+id/id_top_ly"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+    <!-- 中间滚动条 -->
+
+    <ViewFlipper
+            android:id="@+id/viewflipper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/id_top_ly"
             android:layout_centerVertical="true"
             android:background="#ffffff"
-            android:layout_height="match_parent"/>
+            android:visibility="invisible" />
+
+    <!-- 底部 -->
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:layout_alignParentBottom="true"
+            android:alpha="204"
+            android:background="#000"
+            android:orientation="vertical" >
+
+        <!--
+             <com.youbanban.cordova.chooseimages.imageloader.HorizontailListView
+            android:id="@+id/horizontallistview1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" />
+        -->
+
+        <com.youbanban.cordova.chooseimages.imageloader.HorizontalListView
+                android:id="@+id/horizon_listview"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentTop="true" >
+        </com.youbanban.cordova.chooseimages.imageloader.HorizontalListView>
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#66656b" />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal" >
+
+            <TextView
+                    android:id="@+id/tv_xuanze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="8dp"
+                    android:text="选择"
+                    android:textColor="#fff" />
+
+            <ImageView
+                    android:id="@+id/img_xuanze"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_toLeftOf="@+id/tv_xuanze"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/pictures_selected" />
+            <RelativeLayout
+                    android:id="@+id/rl_delete"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:alpha="100"
+            ></RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

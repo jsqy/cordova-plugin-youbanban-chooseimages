@@ -38,6 +38,7 @@ import android.widget.Toast;
 import com.youbanban.cordova.chooseimages.chooseimages;
 import com.youbanban.cordova.chooseimages.bean.ImageFloder;
 import com.youbanban.cordova.chooseimages.imageloader.ListImageDirPopupWindow.OnImageDirSelected;
+import com.youbanban.cordova.chooseimages.utils.Util;
 import com.youbanban.app.R;
 
 public class MainActivity extends Activity implements OnImageDirSelected
@@ -387,13 +388,23 @@ public class MainActivity extends Activity implements OnImageDirSelected
         case 0:
             break;
         case 2:
-        	mAdapter.notifyDataSetChanged();
-    		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
-    		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+    		if(data.getStringExtra("isOk").equals("1")){
+    			Intent mIntent = new Intent();
+				MainActivity.this.setResult(RESULT_OK, mIntent);
+				MainActivity.this.finish();
+        	}else{
+        		mAdapter.notifyDataSetChanged();
+        		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
+        		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+        	}
             break;
         default:
             break;
         }
+    }
+
+    private void showMsg(String msg){
+    	Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
 	@Override

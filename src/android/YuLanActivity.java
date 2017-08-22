@@ -2,9 +2,15 @@ package com.youbanban.cordova.chooseimages;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
+
+import com.bumptech.glide.Glide;
 import com.youbanban.app.R;
 import com.youbanban.cordova.chooseimages.imageloader.HorizontalListView;
 import com.youbanban.cordova.chooseimages.imageloader.HorizontalListViewAdapter;
@@ -13,12 +19,17 @@ import com.youbanban.cordova.chooseimages.imageloader.MyAdapter;
 import com.youbanban.cordova.chooseimages.utils.Util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -27,6 +38,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -41,8 +53,7 @@ import android.widget.ViewFlipper;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
 
-public class YuLanActivity extends Activity implements
-		android.view.GestureDetector.OnGestureListener {
+public class YuLanActivity extends Activity{
 
 	private int[] imgs = { R.drawable.array_left, R.drawable.array_left,
 			R.drawable.array_left, R.drawable.array_left, R.drawable.array_left };
@@ -72,6 +83,11 @@ public class YuLanActivity extends Activity implements
 	private int isOver = 1;
 	private int isSelectNum = 0;
 
+
+	ViewPager mViewPager;
+	List<PhotoView> imageViews;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,13 +95,42 @@ public class YuLanActivity extends Activity implements
 		mActivity = this;
 		initView();
 		initBitmap();
-		initIndexImage();
-
+//		initBigImage();
 		// initFlipper();
 		initOnClick();
 
 		initTest();
 		initBtnOK();
+		initViewPager();
+	}
+
+	private void initViewPager(){
+		mViewPager = (ViewPager) findViewById(R.id.viewPager);
+		mViewPager.setAdapter(new ImageAdapter(this));
+		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int arg0) {
+				// TODO Auto-generated method stub
+				indexNum = arg0;
+				initIsDeleteImage();
+				hListViewAdapter.setSelectIndex(indexNum);
+				hListViewAdapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 	}
 
 	@Override
@@ -97,12 +142,10 @@ public class YuLanActivity extends Activity implements
 
 	private void initBitmap() {
 		for (int i = 0; i < MyAdapter.list.size(); i++) {
-			Bitmap bitmap = getCompressedBitmap(
-					MyAdapter.list.get(i).getPath(), 100, 100);
-			Bitmap bitmapBig = getCompressedBitmap(MyAdapter.list.get(i)
-					.getPath(), 800, 600);
-			MyAdapter.list.get(i).setBitmap(bitmap);
-			MyAdapter.list.get(i).setBitmapBig(bitmapBig);
+//			Bitmap bitmap = getCompressedBitmap(MyAdapter.list.get(i).getPath(), 100, 100);
+//			Bitmap bitmapBig = getCompressedBitmap(MyAdapter.list.get(i).getPath(), 800, 600);
+//			MyAdapter.list.get(i).setBitmap(bitmap);
+//			MyAdapter.list.get(i).setBitmapBig(bitmapBig);
 			MyAdapter.list.get(i).setIsDelete(0);
 		}
 	}
@@ -131,8 +174,9 @@ public class YuLanActivity extends Activity implements
 				// olderSelectView.setSelected(false);
 				// olderSelectView = null;
 				// }
+				mViewPager.setCurrentItem(position);
 				indexNum = position;
-				initIndexImage();
+//				initIndexImage();
 				initIsDeleteImage();
 				// olderSelectView = view;
 				// view.setSelected(true);
@@ -157,14 +201,12 @@ public class YuLanActivity extends Activity implements
 		viewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
 		rl_delete = (RelativeLayout) findViewById(R.id.rl_delete);
 		rl_back = (RelativeLayout) findViewById(R.id.rl_back);
-		img_index = (ImageView) findViewById(R.id.img_index);
 		img_xuanze = (ImageView) findViewById(R.id.img_xuanze);
 		btn_ok = (Button) findViewById(R.id.btn_ok);
 	}
 
-	private void initIndexImage() {
-		img_index.setImageBitmap(MyAdapter.list.get(indexNum).getBitmapBig());
-	}
+
+
 
 	private void initIsDeleteImage(){
 
@@ -201,60 +243,60 @@ public class YuLanActivity extends Activity implements
 			}
 		});
 
-		img_index.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-
-				switch (event.getAction()) {
-				// 按下
-				case MotionEvent.ACTION_DOWN:
-					mPosX = event.getX();
-					mPosY = event.getY();
-					break;
-				// 移动
-				case MotionEvent.ACTION_MOVE:
-
-
-					break;
-				// 拿起
-				case MotionEvent.ACTION_UP:
-					mCurrentPosX = event.getX();
-					mCurrentPosY = event.getY();
-					if (mCurrentPosX - mPosX > 100){
-						// 右
-						if(indexNum >0){
-							indexNum = (indexNum -1);
-							img_index.setImageBitmap(MyAdapter.list.get(indexNum).getBitmapBig());
-							hListViewAdapter.setSelectIndex(indexNum);
-							hListViewAdapter.notifyDataSetChanged();
-						}
-						initIsDeleteImage();
-					}
-
-					else if (mCurrentPosX - mPosX < -100){
-						// 左
-						if(indexNum <MyAdapter.list.size()-1){
-							indexNum = (indexNum +1);
-							img_index.setImageBitmap(MyAdapter.list.get(indexNum).getBitmapBig());
-							hListViewAdapter.setSelectIndex(indexNum);
-							hListViewAdapter.notifyDataSetChanged();
-						}
-						initIsDeleteImage();
-					}
-//					else if (mCurrentPosY - mPosY > 20
-//							&& Math.abs(mCurrentPosX - mPosX) < 10)
-//						showMsg("向下边");
-//					else if (mCurrentPosY - mPosY < -20
-//							&& Math.abs(mCurrentPosX - mPosX) < 10)
-//						showMsg("向上边");
-					break;
-				default:
-					break;
-				}
-				return true;
-			}
-		});
+//		img_index.setOnTouchListener(new View.OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//
+//				switch (event.getAction()) {
+//				// 按下
+//				case MotionEvent.ACTION_DOWN:
+//					mPosX = event.getX();
+//					mPosY = event.getY();
+//					break;
+//				// 移动
+//				case MotionEvent.ACTION_MOVE:
+//
+//
+//					break;
+//				// 拿起
+//				case MotionEvent.ACTION_UP:
+//					mCurrentPosX = event.getX();
+//					mCurrentPosY = event.getY();
+//					if (mCurrentPosX - mPosX > 100){
+//						// 右
+//						if(indexNum >0){
+//							indexNum = (indexNum -1);
+//							img_index.setImageBitmap(MyAdapter.list.get(indexNum).getBitmapBig());
+//							hListViewAdapter.setSelectIndex(indexNum);
+//							hListViewAdapter.notifyDataSetChanged();
+//						}
+//						initIsDeleteImage();
+//					}
+//
+//					else if (mCurrentPosX - mPosX < -100){
+//						// 左
+//						if(indexNum <MyAdapter.list.size()-1){
+//							indexNum = (indexNum +1);
+//							img_index.setImageBitmap(MyAdapter.list.get(indexNum).getBitmapBig());
+//							hListViewAdapter.setSelectIndex(indexNum);
+//							hListViewAdapter.notifyDataSetChanged();
+//						}
+//						initIsDeleteImage();
+//					}
+////					else if (mCurrentPosY - mPosY > 20
+////							&& Math.abs(mCurrentPosX - mPosX) < 10)
+////						showMsg("向下边");
+////					else if (mCurrentPosY - mPosY < -20
+////							&& Math.abs(mCurrentPosX - mPosX) < 10)
+////						showMsg("向上边");
+//					break;
+//				default:
+//					break;
+//				}
+//				return true;
+//			}
+//		});
 
 		// img_index.setOnClickListener(new OnClickListener() {
 		//
@@ -376,84 +418,12 @@ public class YuLanActivity extends Activity implements
 		}
 	}
 
-	@Override
-	public boolean onDown(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean onFling(MotionEvent e1, MotionEvent e2, float arg2,
-			float arg3) {
-		if (e2.getX() - e1.getX() > 120) {
-			if (num == 0) {
-				num = MyAdapter.mSelectedImage.size() - 1;
-			} else {
-				num = num - 1;
-			}
 
-			// 从左向右滑动（左进右出）
-			Animation rInAnim = AnimationUtils.loadAnimation(mActivity,
-					R.anim.push_right_in); // 向右滑动左侧进入的渐变效果（alpha 0.1 -> 1.0）
-			Animation rOutAnim = AnimationUtils.loadAnimation(mActivity,
-					R.anim.push_right_out); // 向右滑动右侧滑出的渐变效果（alpha 1.0 -> 0.1）
 
-			viewFlipper.setInAnimation(rInAnim);
-			viewFlipper.setOutAnimation(rOutAnim);
-			viewFlipper.showPrevious();
-			return true;
-		} else if (e2.getX() - e1.getX() < -120) {
-			if (num == MyAdapter.mSelectedImage.size() - 1) {
-				num = 0;
-			} else {
-				num = num + 1;
-			}
-			// 从右向左滑动（右进左出）
-			Animation lInAnim = AnimationUtils.loadAnimation(mActivity,
-					R.anim.push_left_in); // 向左滑动左侧进入的渐变效果（alpha 0.1 -> 1.0）
-			Animation lOutAnim = AnimationUtils.loadAnimation(mActivity,
-					R.anim.push_left_out); // 向左滑动右侧滑出的渐变效果（alpha 1.0 -> 0.1）
 
-			viewFlipper.setInAnimation(lInAnim);
-			viewFlipper.setOutAnimation(lOutAnim);
-			viewFlipper.showNext();
-			return true;
-		}
 
-		return true;
-	}
 
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		System.gc();
-	}
-
-	@Override
-	public void onLongPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
-			float arg3) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void onShowPress(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean onSingleTapUp(MotionEvent arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	private void showMsg(String msg) {
 		Toast.makeText(mActivity, msg, 2000).show();
@@ -497,5 +467,68 @@ public class YuLanActivity extends Activity implements
 		}
 		return inSampleSize;
 	}
+
+	     class ImageAdapter extends PagerAdapter {
+		         Context context;
+		         int[] images;
+
+		         public void init() {
+		             imageViews = new ArrayList<PhotoView>();
+		             for (int i = 0; i < MyAdapter.list.size(); i++) {
+//		                 ImageView image = new ImageView(context);
+		                 PhotoView image = new PhotoView(context);
+		                 image.setScaleType(ScaleType.FIT_XY);
+		                 Glide.with(YuLanActivity.this).load(MyAdapter.list.get(i).getPath()).into(image);
+//		                 Glide.with(context).load(MyAdapter.list.get(i).getPath()).centerCrop()
+//		 	            .placeholder(Color.WHITE).crossFade()
+//		 	            .into(image);
+//		                 Glide.with(context).
+		                 //使图片实现可以放大缩小的功能
+//		                 PhotoViewAttacher mAttacher=new PhotoViewAttacher(image);
+
+
+		                 imageViews.add(image);
+
+
+		             }
+		 //            for (int i : images) {
+		 //                ImageView image = new ImageView(context);
+		 //                image.setImageResource(i);
+		 //                imageViews.add(image);
+		 //             }
+		         }
+
+		         public ImageAdapter(Context context) {
+		             this.context = context;
+		             init();
+		         }
+
+		         @Override
+		         public void destroyItem(ViewGroup container, int position, Object object) {
+		             container.removeView(imageViews.get(position));
+		         }
+
+		         @Override
+		         public View instantiateItem(ViewGroup container, int position) {
+		             container.addView(imageViews.get(position));
+//		             showMsg(position+"");
+//		             indexNum = position;
+//		             initIsDeleteImage();
+//		             hListViewAdapter.setSelectIndex(indexNum);
+//		             hListViewAdapter.notifyDataSetChanged();
+		             return imageViews.get(position);
+		         }
+
+		         @Override
+		         public int getCount() {
+		             return imageViews.size();
+		         }
+
+		         @Override
+		         public boolean isViewFromObject(View arg0, Object arg1) {
+		             return arg0 == arg1;
+		         }
+
+		     }
 
 }

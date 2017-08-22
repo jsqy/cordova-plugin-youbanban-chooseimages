@@ -4,7 +4,6 @@
                 android:layout_height="fill_parent"
                 android:background="#fff" >
 
-
     <RelativeLayout
             android:id="@+id/id_top_ly"
             android:layout_width="match_parent"
@@ -21,12 +20,13 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/array_left"
                 android:textColor="#fff" />
+
         <RelativeLayout
                 android:id="@+id/rl_back"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-        ></RelativeLayout>
+                android:layout_alignParentLeft="true" >
+        </RelativeLayout>
 
         <TextView
                 android:id="@+id/tv_title"
@@ -34,32 +34,42 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="预览照片"
                 android:gravity="center_vertical"
+                android:text="预览照片"
                 android:textColor="#fff" />
 
         <Button
                 android:id="@+id/btn_ok"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dip"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
                 android:background="@drawable/shape_corner"
-                android:paddingLeft="4dip"
-                android:layout_marginTop="10dp"
-                android:paddingRight="4dip"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
                 android:text="完成"
+                android:textSize="17dp"
                 android:textColor="#000" />
     </RelativeLayout>
 
-
-
-    <ImageView
+    <!--
+         <ImageView
             android:id="@+id/img_index"
             android:layout_below="@+id/id_top_ly"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
+    -->
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/id_top_ly" >
+    </android.support.v4.view.ViewPager>
+
     <!-- 中间滚动条 -->
 
     <ViewFlipper
@@ -77,8 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="101dp"
             android:layout_alignParentBottom="true"
-            android:alpha="204"
-            android:background="#000"
+            android:background="#cc000000"
             android:orientation="vertical" >
 
         <!--
@@ -95,15 +104,16 @@
                 android:layout_alignParentTop="true" >
         </com.youbanban.cordova.chooseimages.imageloader.HorizontalListView>
 
-
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:cacheColorHint="#00000000"
                 android:background="#66656b" />
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:cacheColorHint="#00000000"
                 android:orientation="horizontal" >
 
             <TextView
@@ -111,26 +121,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
                     android:layout_marginRight="8dp"
+                    android:layout_marginTop="3dp"
                     android:text="选择"
+                    android:textSize="17dp"
                     android:textColor="#fff" />
 
             <ImageView
                     android:id="@+id/img_xuanze"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_toLeftOf="@+id/tv_xuanze"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="5dp"
+                    android:layout_toLeftOf="@+id/tv_xuanze"
                     android:src="@drawable/pictures_selected" />
+
             <RelativeLayout
                     android:id="@+id/rl_delete"
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:alpha="100"
-            ></RelativeLayout>
+                    android:alpha="100" >
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 

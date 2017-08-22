@@ -433,7 +433,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		// mAdapter.notifyDataSetChanged();
 //		mImageCount.setText(floder.getCount() + "张");
 		String name = floder.getName();
-		name = name.substring(1, name.length()-1);
+		name = name.substring(1, name.length());
 		tv_title.setText("相册:"+name);
 		mListImageDirPopupWindow.dismiss();
 

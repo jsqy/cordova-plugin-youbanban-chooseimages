@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="70dp"
-    android:layout_height="70dp"
-    android:padding="10dp"
-    android:gravity="center"
-    android:clickable="true"
-    android:background="#000">
-    
-  <ImageView 
-      android:id="@+id/img_list_item"
-      android:layout_width="50dp"
-      android:layout_height="50dp"
-      android:scaleType="fitXY"/>
-  <RelativeLayout 
-      android:id="@+id/rl_mengceng"
-      android:background="#96ffffff"
-      android:layout_width="49dp"
-      android:layout_height="49dp" />
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:clickable="true"
+                android:background="#00000000">
+
+  <ImageView
+          android:id="@+id/img_list_item"
+          android:layout_width="50dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_height="50dp"
+          android:scaleType="fitXY"/>
+  <RelativeLayout
+          android:id="@+id/rl_mengceng"
+          android:background="#96ffffff"
+          android:layout_width="49dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_height="49dp" />
 
 </RelativeLayout>

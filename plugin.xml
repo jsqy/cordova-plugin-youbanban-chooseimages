@@ -15,6 +15,7 @@
         </config-file>
       <source-file src="src/android/chooseimages.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/YuLanActivity.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
+      <source-file src="src/android/YuLanAllActivity.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/bean/ImageFloder.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
       <source-file src="src/android/bean/Images.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
       <source-file src="src/android/imageloader/ListImageDirPopupWindow.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
@@ -22,6 +23,7 @@
       <source-file src="src/android/imageloader/MyAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/HorizontalListView.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/HorizontalListViewAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
+      <source-file src="src/android/imageloader/HorizontalListViewAdapterAll.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
 
       <source-file src="src/android/utils/BasePopupWindowForListView.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/CommonAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
@@ -35,7 +37,9 @@
       <source-file src="src/android/layout/list_dir.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir_item.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/chooseimage_yulan.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/chooseimage_yulan_all.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/horizontal_list_item.xml" target-dir="res/layout"/>
+      <source-file src="src/android/layout/horizontal_list_item_all.xml" target-dir="res/layout"/>
 
 
       <source-file src="src/android/anim/slide_in.xml" target-dir="res/anim"/>
@@ -70,6 +74,7 @@
       <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <activity android:name="com.youbanban.cordova.chooseimages.imageloader.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name="com.youbanban.cordova.chooseimages.YuLanActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name="com.youbanban.cordova.chooseimages.YuLanAllActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
       </config-file>
       <config-file target="AndroidManifest.xml" parent="/manifest">
         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

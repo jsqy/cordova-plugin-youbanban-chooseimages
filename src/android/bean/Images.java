@@ -9,8 +9,25 @@ public class Images {
 	private Bitmap bitmap;
 	private Bitmap bitmapBig;
 	private int isDelete;
+	private int isCheck;
 
 
+	public int getIsCheck() {
+		return isCheck;
+	}
+	public void setIsCheck(int isCheck) {
+		this.isCheck = isCheck;
+	}
+	public Images(String path, int num, Bitmap bitmap, Bitmap bitmapBig,
+			int isDelete, int isCheck) {
+		super();
+		this.path = path;
+		this.num = num;
+		this.bitmap = bitmap;
+		this.bitmapBig = bitmapBig;
+		this.isDelete = isDelete;
+		this.isCheck = isCheck;
+	}
 	public Images(String path, int num, Bitmap bitmap, Bitmap bitmapBig,
 			int isDelete) {
 		super();

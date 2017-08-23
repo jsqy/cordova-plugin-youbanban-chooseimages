@@ -8,7 +8,9 @@ import java.util.Map;
 
 import org.apache.cordova.LOG;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,9 +18,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.youbanban.cordova.chooseimages.YuLanAllActivity;
 import com.youbanban.cordova.chooseimages.chooseimages;
 import com.youbanban.cordova.chooseimages.bean.Images;
 import com.youbanban.cordova.chooseimages.utils.CommonAdapter;
@@ -28,7 +32,8 @@ import com.youbanban.app.R;
 public class MyAdapter extends CommonAdapter<String>
 {
 
-	private Context context;
+	public Context mContext;
+	public Activity mActivity;
 	/**
 	 * 用户选择的图片，存储为图片的完整路径
 	 */
@@ -40,12 +45,15 @@ public class MyAdapter extends CommonAdapter<String>
 	 */
 	private String mDirPath;
 
-	public MyAdapter(Context context, List<String> mDatas, int itemLayoutId,
+	List<String> mDatas;
+	public MyAdapter(Activity activity, Context context, List<String> mDatas, int itemLayoutId,
 			String dirPath)
 	{
 		super(context, mDatas, itemLayoutId);
-		context = context;
+		this.mContext = context;
+		mActivity = activity;
 		this.mDirPath = dirPath;
+		this.mDatas = mDatas;
 	}
 
 	@Override
@@ -65,14 +73,30 @@ public class MyAdapter extends CommonAdapter<String>
 		final ImageView mSelect = helper.getView(R.id.id_item_select);
 		final TextView tv_item_select = helper.getView(R.id.tv_item_select);
 		final ImageView mSelectAR = helper.getView(R.id.id_item_ar);
+		final RelativeLayout rl_check_button = helper.getView(R.id.rl_check_button);
 		if(item.indexOf("youbanban.ar") != -1){
 			mSelectAR.setImageResource(R.drawable.ar_title);
 		}
 
 
 		mImageView.setColorFilter(null);
+		mImageView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				int result = -1;
+				for(int i =  0;i<mDatas.size();i++){
+					if(mDatas.get(i).equals(item)){
+						result = i;
+					}
+				}
+				Intent intent = new Intent();
+				intent.putExtra("index", result+"");
+				intent.setClass(mActivity,YuLanAllActivity.class);
+				mActivity.startActivityForResult(intent, 3);
+			}
+		});
 		//设置ImageView的点击事件
-		mImageView.setOnClickListener(new OnClickListener()
+		rl_check_button.setOnClickListener(new OnClickListener()
 		{
 			//选择，则将图片变暗，反之则反之
 			@Override
@@ -85,6 +109,7 @@ public class MyAdapter extends CommonAdapter<String>
 					mSelectedImage.remove(mDirPath + "/" + item);
 					mSelect.setImageResource(R.drawable.picture_unselected);
 					mImageView.setColorFilter(null);
+					
 //					for(int i =0;i<list.size();i++){
 //						if(list.get(i).getPath().equals((mDirPath + "/" + item))){
 //							int num = list.get(i).getNum();

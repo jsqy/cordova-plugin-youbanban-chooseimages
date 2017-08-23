@@ -85,7 +85,7 @@ public class YuLanActivity extends Activity{
 
 
 	ViewPager mViewPager;
-	List<PhotoView> imageViews;
+	List<ImageView> imageViews;
 
 
 	@Override
@@ -473,18 +473,20 @@ public class YuLanActivity extends Activity{
 		         int[] images;
 
 		         public void init() {
-		             imageViews = new ArrayList<PhotoView>();
+		             imageViews = new ArrayList<ImageView>();
 		             for (int i = 0; i < MyAdapter.list.size(); i++) {
-//		                 ImageView image = new ImageView(context);
-		                 PhotoView image = new PhotoView(context);
+		                 ImageView image = new ImageView(context);
+//		                 PhotoView image = new PhotoView(context);
 		                 image.setScaleType(ScaleType.FIT_XY);
-		                 Glide.with(YuLanActivity.this).load(MyAdapter.list.get(i).getPath()).into(image);
-//		                 Glide.with(context).load(MyAdapter.list.get(i).getPath()).centerCrop()
-//		 	            .placeholder(Color.WHITE).crossFade()
-//		 	            .into(image);
-//		                 Glide.with(context).
 		                 //使图片实现可以放大缩小的功能
-//		                 PhotoViewAttacher mAttacher=new PhotoViewAttacher(image);
+		                 Glide.with(context).load(MyAdapter.list.get(i).getPath()).centerCrop()
+			 	            .placeholder(Color.WHITE).crossFade()
+			 	            .into(image);
+		                 PhotoViewAttacher mAttacher=new PhotoViewAttacher(image);
+//		                 Glide.with(YuLanActivity.this).load(MyAdapter.list.get(i).getPath()).into(image);
+
+
+
 
 
 		                 imageViews.add(image);

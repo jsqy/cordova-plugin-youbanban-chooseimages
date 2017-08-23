@@ -52,11 +52,11 @@ public class MainActivity extends Activity implements OnImageDirSelected
 	/**
 	 * 图片数量最多的文件夹
 	 */
-	private File mImgDir;
+	public static File mImgDir;
 	/**
 	 * 所有的图片
 	 */
-	private List<String> mImgs;
+	public static List<String> mImgs;
 
 	private GridView mGirdView;
 	private MyAdapter mAdapter;
@@ -143,7 +143,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		 */
 //		Collections.sort(mImgs, new FileComparator());
 		Collections.reverse(mImgs);
-		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
+		mAdapter = new MyAdapter(MainActivity.this,getApplicationContext(), mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
@@ -398,6 +398,17 @@ public class MainActivity extends Activity implements OnImageDirSelected
         		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
         	}
             break;
+        case 3:
+    		if(data.getStringExtra("isOk").equals("1")){
+    			Intent mIntent = new Intent();
+				MainActivity.this.setResult(RESULT_OK, mIntent);
+				MainActivity.this.finish();
+        	}else{
+        		mAdapter.notifyDataSetChanged();
+        		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
+        		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+        	}
+            break;
         default:
             break;
         }
@@ -427,7 +438,7 @@ public class MainActivity extends Activity implements OnImageDirSelected
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
-		mAdapter = new MyAdapter(getApplicationContext(), mImgs,
+		mAdapter = new MyAdapter(MainActivity.this,getApplicationContext(), mImgs,
 				R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		// mAdapter.notifyDataSetChanged();

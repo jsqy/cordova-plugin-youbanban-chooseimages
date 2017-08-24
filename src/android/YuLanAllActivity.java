@@ -227,12 +227,14 @@ public class YuLanAllActivity extends Activity implements OnClickListener {
 					hListView.setVisibility(View.VISIBLE);
 				}
 			}else{ // 未选中-->选中
-				hListView.setVisibility(View.VISIBLE);
-				MyAdapter.mSelectedImage.add(MainActivity.mImgDir.getAbsoluteFile() + "/"
-									+ MainActivity.mImgs.get(indexNum));
-				MyAdapter.initList();
-				initCheck();
-				hListViewAdapter.notifyDataSetChanged();
+				if(MyAdapter.list.size() < chooseimages.maxSize){
+					hListView.setVisibility(View.VISIBLE);
+					MyAdapter.mSelectedImage.add(MainActivity.mImgDir.getAbsoluteFile() + "/"
+										+ MainActivity.mImgs.get(indexNum));
+					MyAdapter.initList();
+					initCheck();
+					hListViewAdapter.notifyDataSetChanged();
+				}
 			}
 			initBtnOK();
 			break;

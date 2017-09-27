@@ -51,7 +51,7 @@ public class chooseimages extends CordovaPlugin {
         	     );  
            	   return false;
         	 }else{
-        	    	maxSize = Integer.parseInt(args.getString(0));
+        	    	maxSize = args.getInt(0);
         	        Intent intent = new Intent();
         	        intent.setClass(activity, MainActivity.class);
         	        this.cordova.startActivityForResult(this, intent, 1);

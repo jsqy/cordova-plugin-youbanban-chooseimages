@@ -66,12 +66,9 @@ public class chooseimages extends CordovaPlugin {
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         switch (resultCode) { //resultCode为回传的标记，我在第二个Activity中回传的是RESULT_OK
             case Activity.RESULT_OK:
-            	String result = "";
+            	JSONArray result = new JSONArray();
  	            for(int i=0;i<MyAdapter.mSelectedImage.size();i++){
- 	               result = result+MyAdapter.mSelectedImage.get(i);
- 	               if(i < MyAdapter.mSelectedImage.size()-1){
- 	            	   result = result + ",";
- 	               }
+ 	               result.put(MyAdapter.mSelectedImage.get(i));
  	             }
  	            MyAdapter.mSelectedImage = new LinkedList<String>();
                 this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK,result)); 

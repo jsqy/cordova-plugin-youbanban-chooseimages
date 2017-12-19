@@ -1,5 +1,9 @@
 package com.youbanban.cordova.chooseimages.imageloader;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,6 +18,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -28,6 +35,7 @@ import com.youbanban.cordova.chooseimages.bean.Images;
 import com.youbanban.cordova.chooseimages.utils.CommonAdapter;
 import com.youbanban.cordova.chooseimages.utils.Util;
 import com.youbanban.app.R;
+import com.youbanban.cordova.translate.content.Content;
 
 public class MyAdapter extends CommonAdapter<String>
 {
@@ -47,7 +55,7 @@ public class MyAdapter extends CommonAdapter<String>
 
 	List<String> mDatas;
 	public MyAdapter(Activity activity, Context context, List<String> mDatas, int itemLayoutId,
-			String dirPath)
+					 String dirPath)
 	{
 		super(context, mDatas, itemLayoutId);
 		this.mContext = context;
@@ -56,6 +64,10 @@ public class MyAdapter extends CommonAdapter<String>
 		this.mDatas = mDatas;
 	}
 
+
+
+
+
 	@Override
 	public void convert(final com.youbanban.cordova.chooseimages.utils.ViewHolder helper, final String item)
 	{
@@ -63,10 +75,25 @@ public class MyAdapter extends CommonAdapter<String>
 		//设置no_pic
 //		helper.setImageResource(R.id.id_item_image, R.drawable.pictures_no);
 		//设置no_selected
-				helper.setImageResource(R.id.id_item_select,
-						R.drawable.picture_unselected);
+		helper.setImageResource(R.id.id_item_select,
+				R.drawable.picture_unselected);
 		//设置图片
-		helper.setImageByUrl(R.id.id_item_image, mDirPath + "/" + item);
+
+
+		int o=Util.readPictureDegree(mDirPath + "/" + item);
+		if(o==0){
+			helper.setImageByUrl(R.id.id_item_image,mDirPath + "/" + item);
+		}else {
+			try {
+				//FileInputStream fis = new FileInputStream(mDirPath + "/" + item);
+				Bitmap bitmap = Util.compressPixel(mDirPath + "/" + item);
+				Bitmap bm=Util.rotateBitmap(bitmap,o);
+				helper.setImageBitmap(R.id.id_item_image, bm);
+			} catch (Exception e) {
+
+			}
+
+		}
 
 		final ImageView mImageView = helper.getView(R.id.id_item_image);
 		mImageView.setScaleType(ScaleType.CENTER_CROP);
@@ -109,7 +136,7 @@ public class MyAdapter extends CommonAdapter<String>
 					mSelectedImage.remove(mDirPath + "/" + item);
 					mSelect.setImageResource(R.drawable.picture_unselected);
 					mImageView.setColorFilter(null);
-					
+
 //					for(int i =0;i<list.size();i++){
 //						if(list.get(i).getPath().equals((mDirPath + "/" + item))){
 //							int num = list.get(i).getNum();

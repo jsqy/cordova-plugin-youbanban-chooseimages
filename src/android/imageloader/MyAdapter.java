@@ -35,7 +35,6 @@ import com.youbanban.cordova.chooseimages.bean.Images;
 import com.youbanban.cordova.chooseimages.utils.CommonAdapter;
 import com.youbanban.cordova.chooseimages.utils.Util;
 import com.youbanban.app.R;
-import com.youbanban.cordova.translate.content.Content;
 
 public class MyAdapter extends CommonAdapter<String>
 {

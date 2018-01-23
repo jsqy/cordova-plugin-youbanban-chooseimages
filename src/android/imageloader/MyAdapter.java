@@ -101,7 +101,7 @@ public class MyAdapter extends CommonAdapter<String>
 		final TextView tv_item_select = helper.getView(R.id.tv_item_select);
 		final ImageView mSelectAR = helper.getView(R.id.id_item_ar);
 		final RelativeLayout rl_check_button = helper.getView(R.id.rl_check_button);
-		if(item.indexOf("youbanban.ar") != -1){
+		if(item.indexOf(".ybb.ar") != -1){
 			mSelectAR.setImageResource(R.drawable.ar_title);
 		}
 

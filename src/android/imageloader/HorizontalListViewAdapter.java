@@ -1,24 +1,8 @@
 package com.youbanban.cordova.chooseimages.imageloader;
 
-
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import com.bumptech.glide.Glide;
-import com.youbanban.app.R;
-import com.youbanban.cordova.chooseimages.YuLanActivity;
-import com.youbanban.cordova.chooseimages.utils.BitmapUtil;
-import com.youbanban.cordova.chooseimages.utils.Util;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Bitmap.Config;
-import android.graphics.drawable.Drawable;
-import android.media.ThumbnailUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,21 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
+import com.bumptech.glide.Glide;
+import com.youbanban.app.R;
 
 public class HorizontalListViewAdapter extends BaseAdapter{
-	private int[] mIconIDs;
-	private String[] mTitles;
 	private Context mContext;
 	private LayoutInflater mInflater;
 	Bitmap iconBitmap;
 	private int selectIndex = -1;
 
-	public HorizontalListViewAdapter(Context context, String[] titles, int[] ids){
+	public HorizontalListViewAdapter(Context context){
 		this.mContext = context;
-		this.mIconIDs = ids;
-		this.mTitles = titles;
 		mInflater=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);//LayoutInflater.from(mContext);
 	}
 	@Override
@@ -59,36 +39,23 @@ public class HorizontalListViewAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
 		ViewHolder holder;
-//		if(convertView==null){
-			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.horizontal_list_item, null);
-			holder.mImage=(ImageView)convertView.findViewById(R.id.img_list_item);
-			holder.rl_mengceng = (RelativeLayout) convertView.findViewById(R.id.rl_mengceng);
-//			holder.mTitle=(TextView)convertView.findViewById(R.id.text_list_item);
-			convertView.setTag(holder);
-//		}else{
-//			holder=(ViewHolder)convertView.getTag();
-//		}
+		holder = new ViewHolder();
+		convertView = mInflater.inflate(R.layout.horizontal_list_item, null);
+		holder.mImage=(ImageView)convertView.findViewById(R.id.img_list_item);
+		holder.rl_mengceng = (RelativeLayout) convertView.findViewById(R.id.rl_mengceng);
+		convertView.setTag(holder);
 		if(position == selectIndex){
 			convertView.setSelected(true);
 		}else{
 			convertView.setSelected(false);
 		}
-
-
 		for(int i = 0;i<MyAdapter.list.size();i++){
 			if(MyAdapter.list.get(i).getNum() == position+1){
 				holder.mImage.setPadding(5, 5, 5, 5);
 				Glide.with(mContext).load(MyAdapter.list.get(i).getPath()).centerCrop()
-	            .placeholder(Color.BLACK).crossFade()
-	            .into(holder.mImage);
-//				holder.mImage.setImageBitmap(MyAdapter.list.get(i).getBitmap());
-				//在ListView中加载列表图片
-
-//				Glide.with(mContext).load(MyAdapter.list.get(i).getPath()).into(holder.mImage);
-				if(position == selectIndex){
+					.placeholder(Color.BLACK).crossFade()
+					.into(holder.mImage);if(position == selectIndex){
 					holder.mImage.setBackgroundColor(Color.rgb(255, 228, 98));
 				}else{
 					holder.mImage.setBackgroundColor(Color.BLACK);
@@ -98,20 +65,12 @@ public class HorizontalListViewAdapter extends BaseAdapter{
 				}else{
 					holder.rl_mengceng.setVisibility(View.GONE);
 				}
-
 			}
 		}
-		
-//		holder.mImage.setImageBitmap(bitmap);
-		
 		return convertView;
 	}
-	
-
-
 
 	private static class ViewHolder {
-		private TextView mTitle ;
 		private ImageView mImage;
 		private RelativeLayout rl_mengceng;
 	}

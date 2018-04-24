@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,15 +25,8 @@ import com.youbanban.app.R;
 import com.youbanban.cordova.chooseimages.bean.ImageFloder;
 import com.youbanban.cordova.chooseimages.chooseimages;
 import com.youbanban.cordova.chooseimages.imageloader.ListImageDirPopupWindow.OnImageDirSelected;
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class MainActivity extends Activity implements OnImageDirSelected{
 	private ProgressDialog mProgressDialog;
@@ -46,10 +38,8 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 	public static TextView tv_ok;
 	private TextView tv_back;
 	private TextView tv_title;
-	// 临时的辅助类，用于防止同一个文件夹的多次扫描/
-	private HashSet<String> mDirPaths = new HashSet<String>();
-	// 扫描拿到所有的图片文件夹/
-	private List<ImageFloder> mImageFloders = new ArrayList<ImageFloder>();
+	private HashSet<String> mDirPaths = new HashSet<String>();// 临时的辅助类，用于防止同一个文件夹的多次扫描
+	private List<ImageFloder> mImageFloders = new ArrayList<ImageFloder>();// 扫描拿到所有的图片文件夹
 	private RelativeLayout mBottomLy;
 	private TextView mChooseDir;
 	private RelativeLayout rl_choose_dir;
@@ -61,16 +51,11 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 	private Handler mHandler = new Handler(){
 		public void handleMessage(android.os.Message msg){
 			mProgressDialog.dismiss();
-			// 为View绑定数据
-			data2View();
-			// 初始化展示文件夹的popupWindw
-			initListDirPopupWindw();
+			data2View();// 为View绑定数据
+			initListDirPopupWindw();// 初始化展示文件夹的popupWindw
 		}
 	};
 
-	/**
-	 * 为View绑定数据
-	 */
 	private void data2View(){
 		if (mImgDir == null){
 			Toast.makeText(getApplicationContext(), "图片加载失败!",
@@ -79,10 +64,9 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		}
 		mImgs = Arrays.asList(mImgDir.list(new FilenameFilter(){
 			@Override
-			public boolean accept(File dir, String filename)
-			{
+			public boolean accept(File dir, String filename){
 				if (filename.endsWith(".jpg") || filename.endsWith(".png")
-						|| filename.endsWith(".jpeg"))
+					|| filename.endsWith(".jpeg"))
 					return true;
 				return false;
 			}
@@ -91,16 +75,12 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		tv_title.setText("相册:"+mImgDir.getName());
 		mChooseDir.setText("切换相册");
 		mAdapter = new MyAdapter(MainActivity.this,getApplicationContext(), mImgs,
-				R.layout.grid_item, mImgDir.getAbsolutePath());
+			R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
 		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
 	};
 
-
-	/**
-	 * 初始化展示文件夹的popupWindw
-	 */
 	private void initListDirPopupWindw(){
 		mListImageDirPopupWindow = new ListImageDirPopupWindow(
 			LayoutParams.MATCH_PARENT, (int) (mScreenHeight * 0.7),
@@ -108,14 +88,12 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 			.inflate(R.layout.list_dir, null));
 		mListImageDirPopupWindow.setOnDismissListener(new OnDismissListener(){
 			@Override
-			public void onDismiss(){
-				// 设置背景颜色变暗
+			public void onDismiss(){// 设置背景颜色变暗
 				WindowManager.LayoutParams lp = getWindow().getAttributes();
 				lp.alpha = 1.0f;
 				getWindow().setAttributes(lp);
 			}
 		});
-		// 设置选择文件夹的回调
 		mListImageDirPopupWindow.setOnImageDirSelected(this);
 	}
 
@@ -129,36 +107,26 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		initView();
 		getImages();
 		initEvent();
-
 	}
 
-	/**
-	 * 利用ContentProvider扫描手机中的图片，此方法在运行在子线程中 完成图片的扫描，最终获得jpg最多的那个文件夹
-	 */
 	private void getImages(){
 		if (!Environment.getExternalStorageState().equals(
 			Environment.MEDIA_MOUNTED)){
 			Toast.makeText(this, "暂无外部存储", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		// 显示进度条
 		mProgressDialog = ProgressDialog.show(this, null, "正在加载...");
 		String firstImage = null;
 		Uri mImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 		ContentResolver mContentResolver = MainActivity.this.getContentResolver();
-		// 只查询jpeg和png的图片
 		Cursor mCursor = mContentResolver.query(mImageUri, null,
-			MediaStore.Images.Media.MIME_TYPE + "=? or "
-				+ MediaStore.Images.Media.MIME_TYPE + "=?",
+			MediaStore.Images.Media.MIME_TYPE + "=? or "+ MediaStore.Images.Media.MIME_TYPE + "=?",
 			new String[] { "image/jpeg", "image/png" },
 			MediaStore.Images.Media.DATE_MODIFIED);
 		while (mCursor.moveToNext()){
-			// 获取图片的路径
 			String path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
-			// 拿到第一张图片的路径
 			if (firstImage == null)
 				firstImage = path;
-			// 获取该图片的父路径名
 			File parentFile = new File(path).getParentFile();
 			if (parentFile == null)
 				continue;
@@ -169,16 +137,13 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 				continue;
 			} else{
 				mDirPaths.add(dirPath);
-				// 初始化imageFloder
 				imageFloder = new ImageFloder();
 				imageFloder.setDir(dirPath);
 				imageFloder.setFirstImagePath(path);
 			}
-			int picSize = parentFile.list(new FilenameFilter()
-			{
+			int picSize = parentFile.list(new FilenameFilter(){
 				@Override
-				public boolean accept(File dir, String filename)
-				{
+				public boolean accept(File dir, String filename){
 					if (filename.endsWith(".jpg")
 						|| filename.endsWith(".png")
 						|| filename.endsWith(".jpeg")
@@ -196,16 +161,10 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 			}
 		}
 		mCursor.close();
-		// 扫描完成，辅助的HashSet也就可以释放内存了
 		mDirPaths = null;
-		// 通知Handler扫描图片完成
 		mHandler.sendEmptyMessage(0x110);
-
 	}
 
-	/**
-	 * 初始化View
-	 */
 	private void initView(){
 		mGirdView = (GridView) findViewById(R.id.id_gridView);
 		mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
@@ -230,14 +189,11 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 			}
 		});
 
-		/**
-		 * 为底部的布局设置点击事件，弹出popupWindow
-		 */
 		rl_choose_dir.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v){
 				mListImageDirPopupWindow
-						.setAnimationStyle(R.style.anim_popup_dir);
+					.setAnimationStyle(R.style.anim_popup_dir);
 				mListImageDirPopupWindow.showAsDropDown(mBottomLy, 0, 0);
 
 				// 设置背景颜色变暗
@@ -250,7 +206,7 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		tv_ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                Intent mIntent = new Intent();
+				Intent mIntent = new Intent();
 				MainActivity.this.setResult(RESULT_OK, mIntent);
 				MainActivity.this.finish();
 			}
@@ -259,20 +215,16 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		tv_back.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                Intent mIntent = new Intent();
+				Intent mIntent = new Intent();
 				MainActivity.this.setResult(RESULT_OK, mIntent);
 				MyAdapter.mSelectedImage = new LinkedList<String>();
 				MainActivity.this.finish();
 			}
 		});
-
-
 	}
 
-	// 回调方法，从第二个页面回来的时候会执行这个方法
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// 根据上面发送过去的请求吗来区别
 		switch (requestCode) {
 			case 0:
 				break;
@@ -319,7 +271,7 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		Collections.sort(mImgs,new FileComparator());
 		// 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		mAdapter = new MyAdapter(MainActivity.this,getApplicationContext(), mImgs,
-				R.layout.grid_item, mImgDir.getAbsolutePath());
+			R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
 		String name = floder.getName();
 		name = name.substring(1, name.length());

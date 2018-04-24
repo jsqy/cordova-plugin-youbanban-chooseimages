@@ -3,38 +3,15 @@ package com.youbanban.cordova.chooseimages.bean;
 import android.graphics.Bitmap;
 
 public class Images {
-
 	private String path;
 	private int num;
 	private Bitmap bitmap;
-	private Bitmap bitmapBig;
 	private int isDelete;
-	private int isCheck;
-
-
-	public int getIsCheck() {
-		return isCheck;
-	}
-	public void setIsCheck(int isCheck) {
-		this.isCheck = isCheck;
-	}
-	public Images(String path, int num, Bitmap bitmap, Bitmap bitmapBig,
-			int isDelete, int isCheck) {
+	public Images(String path, int num, Bitmap bitmap,int isDelete) {
 		super();
 		this.path = path;
 		this.num = num;
 		this.bitmap = bitmap;
-		this.bitmapBig = bitmapBig;
-		this.isDelete = isDelete;
-		this.isCheck = isCheck;
-	}
-	public Images(String path, int num, Bitmap bitmap, Bitmap bitmapBig,
-			int isDelete) {
-		super();
-		this.path = path;
-		this.num = num;
-		this.bitmap = bitmap;
-		this.bitmapBig = bitmapBig;
 		this.isDelete = isDelete;
 	}
 	public int getIsDelete() {
@@ -43,29 +20,16 @@ public class Images {
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
-	public Images(String path, int num, Bitmap bitmap, Bitmap bitmapBig) {
+	public Images(String path, int num, Bitmap bitmap) {
 		super();
 		this.path = path;
 		this.num = num;
 		this.bitmap = bitmap;
-		this.bitmapBig = bitmapBig;
-	}
-	public Bitmap getBitmapBig() {
-		return bitmapBig;
-	}
-	public void setBitmapBig(Bitmap bitmapBig) {
-		this.bitmapBig = bitmapBig;
 	}
 	public Bitmap getBitmap() {
 		return bitmap;
 	}
 	public void setBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
-	}
-	public Images(String path, int num, Bitmap bitmap) {
-		super();
-		this.path = path;
-		this.num = num;
 		this.bitmap = bitmap;
 	}
 	public String getPath() {
@@ -85,6 +49,4 @@ public class Images {
 		this.path = path;
 		this.num = num;
 	}
-	
-
 }

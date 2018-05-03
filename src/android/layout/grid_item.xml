@@ -2,49 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent" >
-	<ImageView
+	<com.youbanban.cordova.chooseimages.utils.RoundImageView
 		android:id="@+id/id_item_image"
 		android:layout_width="fill_parent"
-		android:layout_height="85dp"
-		android:scaleType="centerCrop" />
+		android:layout_height="108dp"
+		android:scaleType="centerCrop"
+		android:layout_marginTop="7.5dp"
+		android:layout_marginBottom="2.5dp"/>
 	<ImageButton
 		android:id="@+id/id_item_select"
 		android:clickable="false"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="24dp"
+		android:layout_height="24dp"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentTop="true"
-		android:layout_marginRight="3dp"
-		android:layout_marginTop="3dp"
+		android:layout_marginRight="6.5dp"
+		android:layout_marginTop="13dp"
 		android:background="@null"
-		android:src="@drawable/pictures_selected" />
-	<TextView
-		android:id="@+id/tv_item_select"
-		android:clickable="false"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:layout_marginRight="11dp"
-		android:layout_marginTop="5dp"
-		android:textColor="#000"
-		android:background="@null"
-		android:src="@drawable/pictures_selected" />
-	<ImageButton
-		android:id="@+id/id_item_ar"
-		android:clickable="false"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true"
-		android:layout_marginRight="3dp"
-		android:layout_marginTop="3dp"
-		android:background="@null"/>
-	<RelativeLayout
-		android:id="@+id/rl_check_button"
-		android:layout_width="40dp"
-		android:layout_height="40dp"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		></RelativeLayout>
+		android:src="@drawable/pictures_selected"
+		android:visibility="invisible"
+		android:scaleType="fitXY"/>
+
 </RelativeLayout>

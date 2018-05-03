@@ -21,12 +21,22 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.youbanban.app.R;
+import com.youbanban.cordova.chooseimages.YuLanActivity;
 import com.youbanban.cordova.chooseimages.bean.ImageFloder;
 import com.youbanban.cordova.chooseimages.chooseimages;
 import com.youbanban.cordova.chooseimages.imageloader.ListImageDirPopupWindow.OnImageDirSelected;
-import java.io.*;
-import java.util.*;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends Activity implements OnImageDirSelected{
 	private ProgressDialog mProgressDialog;
@@ -41,10 +51,8 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 	private HashSet<String> mDirPaths = new HashSet<String>();// 临时的辅助类，用于防止同一个文件夹的多次扫描
 	private List<ImageFloder> mImageFloders = new ArrayList<ImageFloder>();// 扫描拿到所有的图片文件夹
 	private RelativeLayout mBottomLy;
-	private TextView mChooseDir;
 	private RelativeLayout rl_choose_dir;
 	public static TextView mImageCount;
-	private RelativeLayout rl_yulan;
 	int totalCount = 0;
 	private int mScreenHeight;
 	private ListImageDirPopupWindow mListImageDirPopupWindow;
@@ -73,12 +81,10 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		}));
 		Collections.sort(mImgs,new FileComparator());
 		tv_title.setText("相册:"+mImgDir.getName());
-		mChooseDir.setText("切换相册");
 		mAdapter = new MyAdapter(MainActivity.this,getApplicationContext(), mImgs,
 			R.layout.grid_item, mImgDir.getAbsolutePath());
 		mGirdView.setAdapter(mAdapter);
-		mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
-		MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+		tv_ok.setText("确认( "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize+" )");
 	};
 
 	private void initListDirPopupWindw(){
@@ -167,9 +173,8 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 
 	private void initView(){
 		mGirdView = (GridView) findViewById(R.id.id_gridView);
-		mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
+		//mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
 		mImageCount = (TextView) findViewById(R.id.id_total_count);
-		rl_yulan = (RelativeLayout) findViewById(R.id.rl_total_count);
 		rl_choose_dir = (RelativeLayout) findViewById(R.id.rl_choose_dir);
 		tv_ok = (TextView) findViewById(R.id.tv_ok);
 		tv_back = (TextView) findViewById(R.id.tv_back);
@@ -178,12 +183,12 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 	}
 
 	private void initEvent(){
-		rl_yulan.setOnClickListener(new OnClickListener(){
+		mImageCount.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v){
 				if(MyAdapter.mSelectedImage.size() >0){
 					Intent intent = new Intent();
-					intent.setClass(MainActivity.this, com.youbanban.cordova.chooseimages.YuLanActivity.class);
+					intent.setClass(MainActivity.this, YuLanActivity.class);
 					startActivityForResult(intent, 2);
 				}
 			}
@@ -235,8 +240,7 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 					MainActivity.this.finish();
 				}else{
 					mAdapter.notifyDataSetChanged();
-					mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
-					MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+					tv_ok.setText("确认( "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize+" )");
 				}
 				break;
 			case 3:
@@ -246,8 +250,7 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 					MainActivity.this.finish();
 				}else{
 					mAdapter.notifyDataSetChanged();
-					mImageCount.setText("预览"+"("+MyAdapter.mSelectedImage.size() + ")");
-					MainActivity.tv_ok.setText("确认 "+MyAdapter.mSelectedImage.size()+"/"+chooseimages.maxSize);
+					tv_ok.setText("确认( "+MyAdapter.mSelectedImage.size()+"/"+ chooseimages.maxSize+ ")");
 				}
 				break;
 			default:
@@ -275,6 +278,9 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 		mGirdView.setAdapter(mAdapter);
 		String name = floder.getName();
 		name = name.substring(1, name.length());
+		if(name.length()>12){
+			name=name.substring(0,12)+" ... ";
+		}
 		tv_title.setText("相册:"+name);
 		mListImageDirPopupWindow.dismiss();
 	}

@@ -13,23 +13,24 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.youbanban.app.R;
 import com.youbanban.cordova.chooseimages.imageloader.HorizontalListView;
 import com.youbanban.cordova.chooseimages.imageloader.HorizontalListViewAdapter;
 import com.youbanban.cordova.chooseimages.imageloader.MyAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class YuLanActivity extends Activity {
 	private RelativeLayout rl_back;
 	private RelativeLayout rl_delete;
-	private ImageView img_xuanze;
-	private Button btn_ok;
+	private TextView tv_ok;
 	private int indexNum = 0;
 	HorizontalListView hListView;
 	HorizontalListViewAdapter hListViewAdapter;
@@ -37,6 +38,7 @@ public class YuLanActivity extends Activity {
 	private int isSelectNum = 0;
 	ViewPager mViewPager;
 	List<ImageView> imageViews;
+	private TextView tv_xuanze;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,27 +106,27 @@ public class YuLanActivity extends Activity {
 				isSelectNum = isSelectNum+1;
 			}
 		}
-		btn_ok.setText("完成"+isSelectNum+"/"+chooseimages.maxSize);
+		tv_ok.setText("完成( "+isSelectNum+"/"+chooseimages.maxSize+" )");
 	}
 
 	private void initView() {
 		rl_delete = (RelativeLayout) findViewById(R.id.rl_delete);
 		rl_back = (RelativeLayout) findViewById(R.id.rl_back);
-		img_xuanze = (ImageView) findViewById(R.id.img_xuanze);
-		btn_ok = (Button) findViewById(R.id.btn_ok);
+		tv_ok = (TextView) findViewById(R.id.tv_ok);
+		tv_xuanze= (TextView) findViewById(R.id.tv_xuanze);
 	}
 
 	private void initIsDeleteImage(){
 		if(MyAdapter.list.get(indexNum).getIsDelete() == 1){
-			img_xuanze.setImageDrawable(getResources().getDrawable(R.drawable.picture_unselected));
+			tv_xuanze.setText("恢复");
 		}else{
-			img_xuanze.setImageDrawable(getResources().getDrawable(R.drawable.pictures_selected));
+			tv_xuanze.setText("删除");
 		}
 		initBtnOK();
 	}
 
 	private void initOnClick() {
-		btn_ok.setOnClickListener(new OnClickListener() {
+		tv_ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				for(int i = 0;i<MyAdapter.list.size();i++){

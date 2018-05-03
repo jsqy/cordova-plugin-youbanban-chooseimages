@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.youbanban.app.R;
 
@@ -56,9 +56,9 @@ public class HorizontalListViewAdapter extends BaseAdapter{
 				Glide.with(mContext).load(MyAdapter.list.get(i).getPath()).centerCrop()
 					.placeholder(Color.BLACK).crossFade()
 					.into(holder.mImage);if(position == selectIndex){
-					holder.mImage.setBackgroundColor(Color.rgb(255, 228, 98));
+					holder.mImage.setBackgroundColor(Color.WHITE);
 				}else{
-					holder.mImage.setBackgroundColor(Color.BLACK);
+					holder.mImage.setBackgroundColor(Color.parseColor("#00000000"));
 				}
 				if(MyAdapter.list.get(i).getIsDelete() == 1){
 					holder.rl_mengceng.setVisibility(View.VISIBLE);

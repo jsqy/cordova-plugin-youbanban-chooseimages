@@ -15,7 +15,6 @@
         </config-file>
       <source-file src="src/android/chooseimages.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/YuLanActivity.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
-      <source-file src="src/android/YuLanAllActivity.java" target-dir="src/com/youbanban/cordova/chooseimages"/>
       <source-file src="src/android/bean/ImageFloder.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
       <source-file src="src/android/bean/Images.java" target-dir="src/com/youbanban/cordova/chooseimages/bean"/>
       <source-file src="src/android/imageloader/ListImageDirPopupWindow.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
@@ -23,23 +22,20 @@
       <source-file src="src/android/imageloader/MyAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/HorizontalListView.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
       <source-file src="src/android/imageloader/HorizontalListViewAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
-      <source-file src="src/android/imageloader/HorizontalListViewAdapterAll.java" target-dir="src/com/youbanban/cordova/chooseimages/imageloader"/>
 
       <source-file src="src/android/utils/BasePopupWindowForListView.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/CommonAdapter.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/ImageLoader.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/ViewHolder.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
-      <source-file src="src/android/utils/BitmapUtil.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
       <source-file src="src/android/utils/Util.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
-
+	  <source-file src="src/android/utils/RoundImageView.java" target-dir="src/com/youbanban/cordova/chooseimages/utils"/>
+	   
       <source-file src="src/android/layout/chooseimage_main.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/grid_item.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/list_dir_item.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/chooseimage_yulan.xml" target-dir="res/layout"/>
-      <source-file src="src/android/layout/chooseimage_yulan_all.xml" target-dir="res/layout"/>
       <source-file src="src/android/layout/horizontal_list_item.xml" target-dir="res/layout"/>
-      <source-file src="src/android/layout/horizontal_list_item_all.xml" target-dir="res/layout"/>
 
 
       <source-file src="src/android/anim/slide_in.xml" target-dir="res/anim"/>
@@ -49,32 +45,22 @@
       <source-file src="src/android/anim/push_right_in.xml" target-dir="res/anim"/>
       <source-file src="src/android/anim/push_right_out.xml" target-dir="res/anim"/>
 
-      <source-file src="src/android/drawable-hdpi/dir_choose.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/pic_dir.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/picture_unselected.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/pictures_no.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/pictures_selected.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/ic_launcher.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/jiaobiao.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/yellow_background.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/picture_folder_arrow.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/picture_folder_arrow2.png" target-dir="res/drawable-hdpi"/>
       <source-file src="src/android/drawable-hdpi/array_left.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/preview_delete.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/ar_title.png" target-dir="res/drawable-hdpi"/>
-      <source-file src="src/android/drawable-hdpi/shape_corner.xml" target-dir="res/drawable-hdpi"/>
+	  <source-file src="src/android/drawable-hdpi/down_white.png" target-dir="res/drawable-hdpi"/>
+	  <source-file src="src/android/drawable-hdpi/close_white.png" target-dir="res/drawable-hdpi"/>
+	  
 
       <source-file src="src/android/values/styles.xml" target-dir="res/values"/>
 
-      <source-file src="src/android/android-support-v4.jar" target-dir="libs" />
       <source-file src="src/android/glide-3.6.1.jar" target-dir="libs" />
-      <source-file src="src/android/photoview-library-1.2.2.jar" target-dir="libs" />
-      <source-file src="src/android/universal-image-loader-1.9.2_sources.jar" target-dir="libs" />
 
       <config-file target="AndroidManifest.xml" parent="/manifest/application">
         <activity android:name="com.youbanban.cordova.chooseimages.imageloader.MainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity android:name="com.youbanban.cordova.chooseimages.YuLanActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name="com.youbanban.cordova.chooseimages.YuLanAllActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
       </config-file>
       <config-file target="AndroidManifest.xml" parent="/manifest">
         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />

@@ -66,7 +66,8 @@ public class MyAdapter extends CommonAdapter<String>{
 						mSelectedImage.add(mDirPath + "/" + item);
 						initList();
 						notifyDataSetChanged();
-					}else{
+					}else if(MyAdapter.mSelectedImage.size() >= chooseimages.maxSize){
+						notifyDataSetChanged();
 						Toast.makeText(mContext,"亲，最多只能添加"+chooseimages.maxSize+"张照片哦~",Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -74,17 +75,15 @@ public class MyAdapter extends CommonAdapter<String>{
 			}
 		});
 
-		if (mSelectedImage.contains(mDirPath + "/" + item)){
-			for(int i=0;i<list.size();i++){
-				if(list.get(i).getPath().equals((mDirPath + "/" + item))){
-					//mSelect.setImageResource(R.drawable.yellow_background);
-					mImageView.setColorFilter(Color.parseColor("#77000000"));
-					mSelect.setVisibility(View.VISIBLE);
-				}
-			}
+		 if(MyAdapter.mSelectedImage.size() == chooseimages.maxSize) {
+			 if(!mSelectedImage.contains(mDirPath + "/" + item)) {
+				 mImageView.setColorFilter(Color.parseColor("#77000000"));
+			 }
+		 }
+			if (mSelectedImage.contains(mDirPath + "/" + item)){
+			mSelect.setVisibility(View.VISIBLE);
 		}else{
 			mSelect.setVisibility(View.INVISIBLE);
-			mImageView.setColorFilter(null);
 		}
 	}
 

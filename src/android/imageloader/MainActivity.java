@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -147,23 +148,28 @@ public class MainActivity extends Activity implements OnImageDirSelected{
 				imageFloder.setDir(dirPath);
 				imageFloder.setFirstImagePath(path);
 			}
-			int picSize = parentFile.list(new FilenameFilter(){
-				@Override
-				public boolean accept(File dir, String filename){
-					if (filename.endsWith(".jpg")
-						|| filename.endsWith(".png")
-						|| filename.endsWith(".jpeg")
-						||filename.equals("bmp"))
-						return true;
-					return false;
+			try{
+				int picSize = parentFile.list(new FilenameFilter(){
+					@Override
+					public boolean accept(File dir, String filename){
+						if (filename.endsWith(".jpg")
+							|| filename.endsWith(".png")
+							|| filename.endsWith(".jpeg")
+							||filename.equals(".bmp"))
+							return true;
+						return false;
+					}
+				}).length;
+
+				totalCount += picSize;
+				imageFloder.setCount(picSize);
+				mImageFloders.add(imageFloder);
+				if (picSize > mPicsSize){
+					mPicsSize = picSize;
+					mImgDir = parentFile;
 				}
-			}).length;
-			totalCount += picSize;
-			imageFloder.setCount(picSize);
-			mImageFloders.add(imageFloder);
-			if (picSize > mPicsSize){
-				mPicsSize = picSize;
-				mImgDir = parentFile;
+			}catch (Exception e){
+				Log.e("ceshi",dirPath);
 			}
 		}
 		mCursor.close();
